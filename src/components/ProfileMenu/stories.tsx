@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import ProfileMenu from '.';
+import ProfileMenu, { ProfileMenuProps } from '.';
 
 export default {
   title: 'ProfileMenu',
@@ -7,7 +7,20 @@ export default {
   args: {},
   parameters: {
     layout: 'fullscreen',
+    backgrounds: {
+      default: 'won-dark',
+    },
+  },
+  argTypes: {
+    activeLink: {
+      control: {
+        type: 'inline-radio',
+        options: ['/profile/me', '/profile/cards', '/profile/orders'],
+      },
+    },
   },
 } as Meta;
 
-export const Default: Story = (args) => <ProfileMenu {...args} />;
+export const Default: Story<ProfileMenuProps> = (args) => (
+  <ProfileMenu {...args} />
+);
