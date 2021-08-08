@@ -1,5 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { Email } from '@styled-icons/material-outlined';
 import { AddShoppingCart } from '@styled-icons/material-outlined/AddShoppingCart';
 
 import { renderWithTheme } from 'utils/tests/helpers';
@@ -8,20 +10,16 @@ import TextField from '.';
 
 describe('<TextField />', () => {
   it('Vai testar se o TextField renderiza com uma label caso seja passado a prop label', () => {
-    const { container } = renderWithTheme(
-      <TextField label="Label" labelFor="Field" id="Field" />,
-    );
+    renderWithTheme(<TextField label="Label" name="Label" />);
 
     expect(screen.getByLabelText('Label')).toBeInTheDocument();
-    expect(container.firstChild).toMatchSnapshot();
   });
 
   it('Isso vai testar se a renderização com erro esta funcionando com a prop error', () => {
-    const { container } = renderWithTheme(
+    renderWithTheme(
       <TextField
         icon={<AddShoppingCart data-testid="icon" />}
         label="TextField"
-        labelFor="TextField"
         error="Error message"
       />,
     );
@@ -43,12 +41,7 @@ describe('<TextField />', () => {
     const onInput = jest.fn();
 
     renderWithTheme(
-      <TextField
-        onInput={onInput}
-        label="TextField"
-        labelFor="TextField"
-        id="TextField"
-      />,
+      <TextField onInput={onInput} label="TextField" name="TextField" />,
     );
 
     const input = screen.getByRole('textbox');
@@ -67,9 +60,7 @@ describe('<TextField />', () => {
   });
 
   it('Vai testar se o LabelText é acessivel pelo TAB', () => {
-    renderWithTheme(
-      <TextField label="TextField" labelFor="TextField" id="TextField" />,
-    );
+    renderWithTheme(<TextField label="TextField" name="TextField" />);
 
     const input = screen.getByLabelText('TextField');
     expect(document.body).toHaveFocus();
@@ -79,19 +70,14 @@ describe('<TextField />', () => {
   });
 
   it('Vai testar a renderização do icone ao lado do LabelText caso seja passada a prop icon', () => {
-    renderWithTheme(
-      <TextField icon={<AddShoppingCart data-testid="icon" />} />,
-    );
+    renderWithTheme(<TextField icon={<Email data-testid="icon" />} />);
 
     expect(screen.getByTestId('icon')).toBeInTheDocument();
   });
 
-  it('Vai testar se o icone renderiza para a direta caso seja passada a prop iconPosition=right', () => {
+  it('Renders with Icon on the right side', () => {
     renderWithTheme(
-      <TextField
-        iconPosition="right"
-        icon={<AddShoppingCart data-testid="icon" />}
-      />,
+      <TextField icon={<Email data-testid="icon" />} iconPosition="right" />,
     );
 
     expect(screen.getByTestId('icon').parentElement).toHaveStyle({ order: 1 });
@@ -104,8 +90,7 @@ describe('<TextField />', () => {
       <TextField
         onInput={onInput}
         label="TextField"
-        labelFor="TextField"
-        id="TextField"
+        name="TextField"
         disabled
       />,
     );
@@ -127,14 +112,7 @@ describe('<TextField />', () => {
   });
 
   it('Vai testar se com o TextField desabilitado, o TAB não funciona', () => {
-    renderWithTheme(
-      <TextField
-        label="TextField"
-        labelFor="TextField"
-        id="TextField"
-        disabled
-      />,
-    );
+    renderWithTheme(<TextField label="TextField" name="TextField" disabled />);
 
     const input = screen.getByLabelText('TextField');
     expect(document.body).toHaveFocus();
