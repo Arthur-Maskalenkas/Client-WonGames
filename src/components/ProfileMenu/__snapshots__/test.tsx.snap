@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileMenu /> should render the heading 1`] = `
+<main
+  class=""
+>
+  <h1>
+    ProfileMenu
+  </h1>
+</main>
+`;
