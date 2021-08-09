@@ -12,7 +12,7 @@ import * as S from './styles';
 type ActiveLinkTypes = '/profile/me' | '/profile/cards' | '/profile/orders';
 
 export type ProfileMenuProps = {
-  activeLink?: ActiveLinkTypes;
+  activeLink?: ActiveLinkTypes | string;
 };
 
 const ProfileMenu = ({ activeLink }: ProfileMenuProps) => (
