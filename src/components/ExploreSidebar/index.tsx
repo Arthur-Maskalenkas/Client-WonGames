@@ -4,10 +4,9 @@ import Heading from 'components/Heading';
 
 import * as S from './styles';
 
-import { Label } from '@styled-icons/boxicons-solid';
-
 import { useState } from 'react';
 import Button from 'components/Button';
+import { Close, FilterList } from '@styled-icons/material-outlined';
 
 type Field = {
   label: string;
@@ -31,7 +30,8 @@ export type ExploreSidebarProps = {
   onFilter: (values: Values) => void;
 };
 
-// OnFilter serve para pegar o valor dos filtros
+// OnFilter serve para pegar o valor marcado dos filtros
+// handleChange vai atualizar esses  valores
 
 const ExploreSidebar = ({
   items,
@@ -39,10 +39,10 @@ const ExploreSidebar = ({
   onFilter,
 }: ExploreSidebarProps) => {
   const [values, setValues] = useState(initialValues);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (name: string, value: boolean | string) => {
     // Vai pegar todos os valores antigos e adicionar o novo valor
-    console.log(name, value);
     setValues((s) => ({ ...s, [name]: value }));
   };
 
@@ -51,45 +51,57 @@ const ExploreSidebar = ({
   };
 
   return (
-    <S.Wrapper>
-      {items.map((item) => (
-        <div key={item.title}>
-          <Heading lineBottom lineColor="secondary" size="small">
-            {item.title}
-          </Heading>
+    <S.Wrapper isOpen={isOpen}>
+      {/* Vai ser modificado pelo wrapper depois, nos estilos */}
+      <S.Overlay aria-hidden={isOpen} />
 
-          {item.type === 'checkbox' &&
-            item.fields.map((field) => (
-              <Checkbox
-                key={field.name}
-                name={field.name}
-                label={field.label}
-                labelFor={field.name}
-                isChecked={!!values[field.name]} // exemplo: {[windows: true]}
-                onCheck={(v) => handleChange(field.name, v)} // windows, true
-              />
-            ))}
+      <S.IconWrapper>
+        <FilterList aria-label="open filters" onClick={() => setIsOpen(true)} />
+        <Close aria-label="close filters" onClick={() => setIsOpen(false)} />
+      </S.IconWrapper>
 
-          {item.type === 'radio' &&
-            item.fields.map((field) => (
-              <Radio
-                key={field.name}
-                id={field.name}
-                name={item.name}
-                label={field.label}
-                labelFor={field.name}
-                // low-to-high === values[sort_by] (low-to-high)
-                defaultChecked={field.name === values[item.name]}
-                // sort_by, low-to-high
-                onChange={() => handleChange(item.name, field.name)}
-              />
-            ))}
-        </div>
-      ))}
+      <S.Content>
+        {items.map((item) => (
+          <S.Items key={item.title}>
+            <Heading lineBottom lineColor="secondary" size="small">
+              {item.title}
+            </Heading>
 
-      <Button fullWidth size="medium" onClick={handleFilter}>
-        Filter
-      </Button>
+            {item.type === 'checkbox' &&
+              item.fields.map((field) => (
+                <Checkbox
+                  key={field.name}
+                  name={field.name}
+                  label={field.label}
+                  labelFor={field.name}
+                  isChecked={!!values[field.name]} // exemplo: {[windows: true]}
+                  onCheck={(v) => handleChange(field.name, v)} // windows, true
+                />
+              ))}
+
+            {item.type === 'radio' &&
+              item.fields.map((field) => (
+                <Radio
+                  key={field.name}
+                  id={field.name}
+                  value={field.name}
+                  name={item.name}
+                  label={field.label}
+                  labelFor={field.name}
+                  // low-to-high === values[sort_by] (low-to-high)
+                  defaultChecked={field.name === values[item.name]}
+                  // sort_by, low-to-high
+                  onChange={() => handleChange(item.name, field.name)}
+                />
+              ))}
+          </S.Items>
+        ))}
+      </S.Content>
+      <S.Footer>
+        <Button fullWidth size="medium" onClick={handleFilter}>
+          Filter
+        </Button>
+      </S.Footer>
     </S.Wrapper>
   );
 };

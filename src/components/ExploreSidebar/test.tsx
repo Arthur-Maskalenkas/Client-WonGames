@@ -1,10 +1,13 @@
 import { screen } from '@testing-library/react';
 import { renderWithTheme } from 'utils/tests/helpers';
 
+import { Overlay } from './styles';
+
 import itemsMock from './mock';
 
 import ExploreSidebar from '.';
 import userEvent from '@testing-library/user-event';
+import { css } from 'styled-components';
 
 const props = {
   items: itemsMock,
@@ -79,5 +82,30 @@ describe('<ExploreSidebar />', () => {
     userEvent.click(screen.getByRole('button', { name: /filter/i }));
 
     expect(onFilter).toBeCalledWith({ sort_by: 'high-to-low' });
+  });
+
+  it('should open/close sidebar when filtering on mobile ', () => {
+    const { container } = renderWithTheme(
+      <ExploreSidebar items={itemsMock} onFilter={jest.fn} />,
+    );
+
+    const variant = {
+      media: '(max-width:768px)',
+      modifier: String(css`
+        ${Overlay}
+      `),
+    };
+
+    const Element = container.firstChild;
+
+    expect(Element).not.toHaveStyleRule('opacity', '1', variant);
+
+    userEvent.click(screen.getByLabelText(/open filters/));
+
+    expect(Element).toHaveStyleRule('opacity', '1', variant);
+
+    userEvent.click(screen.getByLabelText(/close filters/));
+
+    expect(Element).not.toHaveStyleRule('opacity', '1', variant);
   });
 });
