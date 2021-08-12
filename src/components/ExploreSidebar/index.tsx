@@ -7,6 +7,7 @@ import * as S from './styles';
 import { Label } from '@styled-icons/boxicons-solid';
 
 import { useState } from 'react';
+import Button from 'components/Button';
 
 type Field = {
   label: string;
@@ -20,18 +21,34 @@ export type ItemProps = {
   fields: Field[];
 };
 
-// array de variaveis dinamicas
-// windows: true
+// array de atributos dinamicos. Pode se criar windows: true, sort_by:
 // É boolean para checkbox e para radio é string
 type Values = { [field: string]: boolean | string };
 
 export type ExploreSidebarProps = {
   items: ItemProps[];
   initialValues?: Values;
+  onFilter: (values: Values) => void;
 };
 
-const ExploreSidebar = ({ items, initialValues = {} }: ExploreSidebarProps) => {
+// OnFilter serve para pegar o valor dos filtros
+
+const ExploreSidebar = ({
+  items,
+  initialValues = {},
+  onFilter,
+}: ExploreSidebarProps) => {
   const [values, setValues] = useState(initialValues);
+
+  const handleChange = (name: string, value: boolean | string) => {
+    // Vai pegar todos os valores antigos e adicionar o novo valor
+    console.log(name, value);
+    setValues((s) => ({ ...s, [name]: value }));
+  };
+
+  const handleFilter = () => {
+    onFilter(values);
+  };
 
   return (
     <S.Wrapper>
@@ -48,7 +65,8 @@ const ExploreSidebar = ({ items, initialValues = {} }: ExploreSidebarProps) => {
                 name={field.name}
                 label={field.label}
                 labelFor={field.name}
-                isChecked={!!values[field.name]} //{[windows: true]}
+                isChecked={!!values[field.name]} // exemplo: {[windows: true]}
+                onCheck={(v) => handleChange(field.name, v)} // windows, true
               />
             ))}
 
@@ -60,12 +78,18 @@ const ExploreSidebar = ({ items, initialValues = {} }: ExploreSidebarProps) => {
                 name={item.name}
                 label={field.label}
                 labelFor={field.name}
-                // low-to-high === low-to-high
+                // low-to-high === values[sort_by] (low-to-high)
                 defaultChecked={field.name === values[item.name]}
+                // sort_by, low-to-high
+                onChange={() => handleChange(item.name, field.name)}
               />
             ))}
         </div>
       ))}
+
+      <Button fullWidth size="medium" onClick={handleFilter}>
+        Filter
+      </Button>
     </S.Wrapper>
   );
 };
