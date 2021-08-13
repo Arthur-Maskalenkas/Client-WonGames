@@ -6,6 +6,8 @@ import * as CheckboxStyles from 'components/Checkbox/styles';
 import * as RadioStyles from 'components/Radio/styles';
 import * as HeadingStyles from 'components/Heading/styles';
 
+// para criar o modal, basicamente sobe tudo que quer no modal com z-index e tampa o fundo com o overlay, reaproveitando tudo
+
 export const IconWrapper = styled.div`
   cursor: pointer;
   width: 2.4rem;
@@ -23,6 +25,7 @@ export const Content = styled.div`
     padding: 0 ${theme.spacings.small};
     margin-top: 5.6rem;
     margin-bottom: 2rem;
+    /* efeito */
     transition: transform ${theme.transition.default};
 
     ${media.greaterThan('medium')`
@@ -87,6 +90,7 @@ const wrapperModifiers = {
 
     ${Content} {
       margin-top: ${theme.spacings.medium};
+      /* efeito */
       transform: translateY(0);
       overflow-y: scroll;
     }
