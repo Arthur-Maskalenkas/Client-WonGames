@@ -15,4 +15,10 @@ describe('<CartList />', () => {
 
     expect(container.firstChild).toMatchSnapshot();
   });
+
+  it('vai renderizar o botão', () => {
+    renderWithTheme(<CartList items={mockItems} total="321" hasButton />);
+
+    expect(screen.getByText(/buy it now/i)).toBeInTheDocument();
+  });
 });
