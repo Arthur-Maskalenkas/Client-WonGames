@@ -8,6 +8,7 @@ import * as HeadingStyles from 'components/Heading/styles';
 
 // para criar o modal, basicamente sobe tudo que quer no modal com z-index e tampa o fundo com o overlay, reaproveitando tudo
 
+// O conteudo vai ocupar 100% do espaço que sobrar com o flex. Nada define a altura dele, ele se baseai nos 100vh
 export const IconWrapper = styled.div`
   cursor: pointer;
   width: 2.4rem;
