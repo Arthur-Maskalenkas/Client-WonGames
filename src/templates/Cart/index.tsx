@@ -35,7 +35,7 @@ const Cart = ({
           My cart
         </Heading>
 
-        {cart.items.length ? (
+        {cart.items?.length ? (
           <S.Content>
             <CartList {...cart} />
             <PaymentOptions {...payment} handlePayment={handlePayement} />

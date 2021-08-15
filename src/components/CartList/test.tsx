@@ -21,4 +21,11 @@ describe('<CartList />', () => {
 
     expect(screen.getByText(/buy it now/i)).toBeInTheDocument();
   });
+
+  it('vai redenrizar empty se não tiver jogos', () => {
+    renderWithTheme(<CartList />);
+
+    expect(screen.getByText(/your cart is empty/i)).toBeInTheDocument();
+    expect(screen.queryByText(/total/i)).not.toBeInTheDocument();
+  });
 });
