@@ -16,13 +16,13 @@ export const Wrapper = styled(Container).attrs({ as: 'section' })`
     }
     ${HighlightStyles.Wrapper} {
       ${media.lessThan('medium')`
-        margin-right: calc(-${theme.grid.gutter} / 2);
-        margin-left: calc(-${theme.grid.gutter} / 2);
+        margin-right: calc(-${theme.grid.gutter});
+        margin-left: calc(-${theme.grid.gutter});
       `}
     }
     ${GameCardSliderStyles.Wrapper} {
       ${media.lessThan('huge')`
-        margin-right: calc(-${theme.grid.gutter} / 2);
+        margin-right: calc(-${theme.grid.gutter});
       `}
     }
     margin-bottom: calc(${theme.spacings.large} * 2);
