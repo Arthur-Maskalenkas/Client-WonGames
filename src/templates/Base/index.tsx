@@ -11,7 +11,7 @@ export type BaseTemplateProps = {
 const Base = ({ children }: BaseTemplateProps) => (
   <S.Wrapper>
     <Container>
-      <Menu username="Arthur" />
+      <Menu />
     </Container>
 
     <S.Content>{children}</S.Content>
