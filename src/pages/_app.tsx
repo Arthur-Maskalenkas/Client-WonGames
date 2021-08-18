@@ -6,11 +6,14 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyles from 'styles/global';
 import theme from 'styles/theme';
+import { useApollo } from 'utils/apollo';
 
 function App({ Component, pageProps }: AppProps) {
+  const client = useApollo(pageProps.initialApoloState);
+
   return (
     <ThemeProvider theme={theme}>
-      <ApolloProvider>
+      <ApolloProvider client={client}>
         <Head>
           <title>Won Games</title>
           <link rel="shortcut icon" href="/img/icon-512.png" />
