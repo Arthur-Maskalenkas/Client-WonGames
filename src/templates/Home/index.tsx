@@ -19,7 +19,6 @@ export type HomeTemplateProps = {
   upcommingMoreGames: GameCardProps[];
   freeGames: GameCardProps[];
   freeHighlight: HighlightProps;
-  data: any;
 };
 
 const Home = ({
