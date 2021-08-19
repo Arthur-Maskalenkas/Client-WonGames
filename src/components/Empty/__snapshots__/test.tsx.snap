@@ -72,7 +72,7 @@ exports[`<Empty /> deve renderizar corretamente 1`] = `
         alt="a gamer in couch playing videogame"
         class="c1"
         role="image"
-        src="img/empty.svg"
+        src="/img/empty.svg"
       />
       <h2
         class="c2"
