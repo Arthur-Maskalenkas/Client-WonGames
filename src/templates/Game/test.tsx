@@ -15,10 +15,10 @@ const props: GameTemplateProps = {
   cover: 'bg-image.jpg',
   gameInfo: gameInfoMock,
   gallery: galleryMock,
-  description: TextContentMock,
-  details: gameDetailsMock,
-  upcommingGames: gamesMock,
-  upcommingHighlight: highlightMock,
+  description: `<h1>Custom HTML</h1>`,
+  details: gameDetailsMock as GameDetailsProps,
+  upcomingGames: gamesMock,
+  upcomingHighlight: highlightMock,
   recommendedGames: gamesMock,
 };
 
@@ -76,7 +76,7 @@ describe('<Game />', () => {
     expect(screen.getByTestId(/mock menu/i)).toBeInTheDocument();
     expect(screen.getByTestId(/mock footer/i)).toBeInTheDocument();
     // Vai renderizar a descrição
-    expect(screen.getByText(/Lorem ipsum dolor sit /i)).toBeInTheDocument();
+    expect(screen.getByText(/custom html/i)).toBeInTheDocument();
   });
 
   it('Não vai renderizar a galeria sem imagem', () => {
