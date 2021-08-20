@@ -26,10 +26,7 @@ export async function getStaticProps() {
         developer: game.developers[0].name,
         slug: game.slug,
         img: `${game.cover?.url}`,
-        price: new Intl.NumberFormat('en', {
-          style: 'currency',
-          currency: 'USD',
-        }).format(game.price),
+        price: game.price,
       })),
       filterItems: filterItemsMock,
     },
