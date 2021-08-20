@@ -10,12 +10,17 @@ import * as S from './styles';
 export type GameInfoProps = {
   title: string;
   description: string;
-  price: string;
+  price: number;
 };
 
 const GameInfo = ({ description, price, title }: GameInfoProps) => (
   <S.Wrapper>
-    <Ribbon color="secondary">{`$${price}`}</Ribbon>{' '}
+    <Ribbon color="secondary">
+      {new Intl.NumberFormat('en', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(price)}
+    </Ribbon>{' '}
     <Heading color="black" lineBottom>
       {title}
     </Heading>
