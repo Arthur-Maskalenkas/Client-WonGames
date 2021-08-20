@@ -4,6 +4,8 @@ import { initializeApollo } from 'utils/apollo';
 import { QUERY_GAMES } from 'graphql/queries/games';
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames';
 
+// Gametemplate vai receber uma lista de games, e por isso o map. Esta dabdi uma lista de games
+
 export default function GamesPage(props: GamesTemplateProps) {
   return <GamesTemplate {...props} />;
 }
