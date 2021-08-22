@@ -9,7 +9,7 @@ export const QUERY_HOME = gql`
       ...BannerFragment
     }
     newGames: games(
-      where: { release_date_lte: "2021-01-27" }
+      where: { release_date_lte: "2021-08-27" }
       sort: "release_date:desc"
       limit: 8
     ) {
