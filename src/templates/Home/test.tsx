@@ -10,13 +10,12 @@ import Home from '.';
 
 const props = {
   banners: bannerMock,
-  newGames: [gamesMock[0]],
+  newGames: gamesMock,
   mostPopularHighlight: highlightMock,
-  mostPopularGames: [gamesMock[0]],
-  upcommingGames: [gamesMock[0]],
+  mostPopularGames: gamesMock,
+  upcommingGames: gamesMock,
   upcommingHighlight: highlightMock,
-  upcommingMoreGames: [gamesMock[0]],
-  freeGames: [gamesMock[0]],
+  freeGames: gamesMock,
   freeHighlight: highlightMock,
 };
 
@@ -47,7 +46,7 @@ describe('<Home />', () => {
     renderWithTheme(<Home {...props} />);
 
     // Renderizando apenas os componentes mocados
-    expect(screen.getAllByTestId('mock-showcase')).toHaveLength(5);
+    expect(screen.getAllByTestId('mock-showcase')).toHaveLength(4);
     expect(screen.getByTestId('mock-bannerSlider')).toBeInTheDocument();
   });
 });
