@@ -31,6 +31,7 @@ export async function getStaticProps() {
         ribbonColor: banner.ribbon?.color || null,
         ribbonSize: banner.ribbon?.size || null,
       })),
+      newGamesTitle: sections?.newGames?.title,
       newGames: newGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -38,7 +39,16 @@ export async function getStaticProps() {
         img: game.cover?.url,
         price: game.price,
       })),
-      mostPopularHighlight: highlightMock,
+      mostPopularGamesTitle: sections?.popularGames?.title,
+      mostPopularHighlight: {
+        title: sections?.popularGames?.highlight?.title,
+        subtitle: sections?.popularGames?.highlight?.subtitle,
+        backgroundImage: sections?.popularGames?.highlight?.background?.url,
+        floatImage: sections?.popularGames?.highlight?.floatImage?.url || null,
+        buttonLabel: sections?.popularGames?.highlight?.buttonLabel,
+        buttonLink: sections?.popularGames?.highlight?.buttonLink,
+        alignment: sections?.popularGames?.highlight?.alignment,
+      },
       mostPopularGames: sections?.popularGames!.games.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -46,6 +56,7 @@ export async function getStaticProps() {
         img: game.cover?.url,
         price: game.price,
       })),
+      upcomingGamesTitle: sections?.upcomingGames?.title,
       upcommingGames: upcomingGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -53,8 +64,17 @@ export async function getStaticProps() {
         img: game.cover?.url,
         price: game.price,
       })),
-      upcommingHighlight: highlightMock,
+      upcommingHighlight: {
+        title: sections?.upcomingGames?.highlight?.title,
+        subtitle: sections?.upcomingGames?.highlight?.subtitle,
+        backgroundImage: sections?.upcomingGames?.highlight?.background?.url,
+        floatImage: sections?.upcomingGames?.highlight?.floatImage?.url || null,
+        buttonLabel: sections?.upcomingGames?.highlight?.buttonLabel,
+        buttonLink: sections?.upcomingGames?.highlight?.buttonLink,
+        alignment: sections?.upcomingGames?.highlight?.alignment,
+      },
       upcommingMoreGames: gamesMock,
+      freeGamesTitle: sections?.freeGames?.title,
       freeGames: freeGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -62,7 +82,15 @@ export async function getStaticProps() {
         img: game.cover?.url,
         price: game.price,
       })),
-      freeHighlight: highlightMock,
+      freeHighlight: {
+        title: sections?.freeGames?.highlight?.title,
+        subtitle: sections?.freeGames?.highlight?.subtitle,
+        backgroundImage: sections?.freeGames?.highlight?.background?.url,
+        floatImage: sections?.freeGames?.highlight?.floatImage?.url || null,
+        buttonLabel: sections?.freeGames?.highlight?.buttonLabel,
+        buttonLink: sections?.freeGames?.highlight?.buttonLink,
+        alignment: sections?.freeGames?.highlight?.alignment,
+      },
     },
   };
 }
