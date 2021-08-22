@@ -15,7 +15,7 @@ export async function getStaticProps() {
 
   // Ao inves de utilizar data.banners ou data.newGames, ja desestrutura eles logo
   const {
-    data: { banners, newGames },
+    data: { banners, newGames, upcomingGames, freeGames, sections },
   } = await apolloClient.query<QueryHome>({ query: QUERY_HOME });
 
   return {
@@ -39,11 +39,29 @@ export async function getStaticProps() {
         price: game.price,
       })),
       mostPopularHighlight: highlightMock,
-      mostPopularGames: gamesMock,
-      upcommingGames: gamesMock,
+      mostPopularGames: sections?.popularGames!.games.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0].name,
+        img: game.cover?.url,
+        price: game.price,
+      })),
+      upcommingGames: upcomingGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0].name,
+        img: game.cover?.url,
+        price: game.price,
+      })),
       upcommingHighlight: highlightMock,
       upcommingMoreGames: gamesMock,
-      freeGames: gamesMock,
+      freeGames: freeGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0].name,
+        img: game.cover?.url,
+        price: game.price,
+      })),
       freeHighlight: highlightMock,
     },
   };
