@@ -39,7 +39,7 @@ export async function getStaticPaths() {
   }));
 
   // Caso a pagina não exista, ele vai correr atras (fallback)
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 }
 
 /*
