@@ -3,7 +3,7 @@ import bannersMock from 'components/BannerSlider/mock';
 import gamesMock from 'components/GameCardSlider/mock';
 import highlightMock from 'components/Highlight/mock';
 import { initializeApollo } from 'utils/apollo';
-import { QueryHome } from 'graphql/generated/QueryHome';
+import { QueryHome, QueryHomeVariables } from 'graphql/generated/QueryHome';
 import { QUERY_HOME } from 'graphql/queries/home';
 import { bannerMapper, gamesMapper, highlightMapper } from 'utils/mappers';
 
@@ -17,7 +17,10 @@ export async function getStaticProps() {
   // Ao inves de utilizar data.banners ou data.newGames, ja desestrutura eles logo
   const {
     data: { banners, newGames, upcomingGames, freeGames, sections },
-  } = await apolloClient.query<QueryHome>({ query: QUERY_HOME });
+  } = await apolloClient.query<QueryHome, QueryHomeVariables>({
+    query: QUERY_HOME,
+    variables: { date: '2021-01-29' },
+  });
 
   return {
     props: {
