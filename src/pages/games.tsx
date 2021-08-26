@@ -13,7 +13,8 @@ export default function GamesPage(props: GamesTemplateProps) {
 export async function getStaticProps() {
   const apolloClient = initializeApollo();
 
-  // Pegando os dados para ja ter um estado inicial do lado do client, e passando esses dados com initialApolloState
+  // Pegando os dados para ja ter um estado inicial do lado do client, e passando esses dados para o client com initialApolloState
+  // O data do client ja existe, então sequer ele vai precisar rodar a query. Por isso o loading nunca vai aparecer
   await apolloClient.query<QueryGames, QueryGamesVariables>({
     query: QUERY_GAMES,
     variables: { limit: 15 },
@@ -22,6 +23,7 @@ export async function getStaticProps() {
   return {
     props: {
       revalidate: 60,
+      // Extraindo os dados da query e passando para o client
       initialApolloState: apolloClient.cache.extract(),
       filterItems: filterItemsMock,
     },

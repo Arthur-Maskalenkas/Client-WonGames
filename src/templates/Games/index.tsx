@@ -17,6 +17,7 @@ export type GamesTemplateProps = {
 };
 
 const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
+  // O data ja existe
   const { data, loading } = useQuery<QueryGames, QueryGamesVariables>(
     QUERY_GAMES,
     { variables: { limit: 15 } },
@@ -35,6 +36,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
       <S.Main>
         <ExploreSidebar items={filterItems} onFilter={handleFilter} />
 
+        {/* O loading nunca vai aparecer. Nunca vai ter um estado de loading no inicio ja que toda vez que bater na pagina ja vai ter dado graças ao /pages/games */}
         {loading ? (
           <h1 style={{ color: 'white' }}>loading...</h1>
         ) : (
