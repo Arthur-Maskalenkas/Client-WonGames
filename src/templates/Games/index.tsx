@@ -17,7 +17,7 @@ export type GamesTemplateProps = {
 };
 
 const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
-  const { data, loading, error } = useQuery<QueryGames, QueryGamesVariables>(
+  const { data, loading } = useQuery<QueryGames, QueryGamesVariables>(
     QUERY_GAMES,
     {
       variables: { limit: 15 },
@@ -36,8 +36,9 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
     <Base>
       <S.Main>
         <ExploreSidebar items={filterItems} onFilter={handleFilter} />
+
         {loading ? (
-          <p>loading...</p>
+          <h1 style={{ color: 'white' }}>loading...</h1>
         ) : (
           <section>
             <Grid>
