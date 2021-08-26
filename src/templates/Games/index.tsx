@@ -1,3 +1,5 @@
+//https://www.apollographql.com/docs/react/pagination/core-api/
+
 import { useQuery } from '@apollo/client';
 
 import ExploreSidebar, { ItemProps } from 'components/ExploreSidebar';
@@ -18,17 +20,18 @@ export type GamesTemplateProps = {
 
 const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
   // O data ja existe
-  const { data, loading } = useQuery<QueryGames, QueryGamesVariables>(
-    QUERY_GAMES,
-    { variables: { limit: 15 } },
-  );
+  const { data, loading, fetchMore } = useQuery<
+    QueryGames,
+    QueryGamesVariables
+  >(QUERY_GAMES, { variables: { limit: 15 } });
 
   const handleFilter = () => {
     return;
   };
 
+  // https://www.apollographql.com/docs/react/pagination/core-api/
   const handleShowMore = () => {
-    return;
+    fetchMore({ variables: { limit: 15, start: data?.games.length } });
   };
 
   return (
