@@ -9,11 +9,11 @@ import theme from 'styles/theme';
 import { useApollo } from 'utils/apollo';
 
 function App({ Component, pageProps }: AppProps) {
-  const client = useApollo(pageProps.initialApoloState);
+  const client = useApollo(pageProps.initialApolloState);
 
   return (
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
         <Head>
           <title>Won Games</title>
           <link rel="shortcut icon" href="/img/icon-512.png" />
@@ -26,8 +26,8 @@ function App({ Component, pageProps }: AppProps) {
         </Head>
         <GlobalStyles />
         <Component {...pageProps} />
-      </ApolloProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
 

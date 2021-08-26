@@ -19,9 +19,7 @@ export type GamesTemplateProps = {
 const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
   const { data, loading } = useQuery<QueryGames, QueryGamesVariables>(
     QUERY_GAMES,
-    {
-      variables: { limit: 15 },
-    },
+    { variables: { limit: 15 } },
   );
 
   const handleFilter = () => {
