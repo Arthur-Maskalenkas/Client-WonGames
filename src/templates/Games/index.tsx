@@ -25,7 +25,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
     return;
   };
 
-  // Vai adicionar nas policy para usar o fetchMore
+  // Vai adicionar nas policy para usar o fetchMore cacheando as informações
   // https://www.apollographql.com/docs/react/pagination/core-api/
   const handleShowMore = () => {
     fetchMore({ variables: { limit: 15, start: data?.games.length } });
