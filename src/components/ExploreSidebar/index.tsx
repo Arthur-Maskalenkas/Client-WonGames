@@ -5,11 +5,11 @@ import Button from 'components/Button';
 
 import * as S from './styles';
 
-import { useState } from 'react';
 import xor from 'lodash.xor';
 
 import { Close, FilterList } from '@styled-icons/material-outlined';
 import { ParsedUrlQueryInput } from 'querystring';
+import { useState, useEffect } from 'react';
 
 type Field = {
   label: string;
@@ -42,6 +42,11 @@ const ExploreSidebar = ({
   const [values, setValues] = useState(initialValues);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    onFilter(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values]);
+
   const handleRadio = (name: string, value: boolean | string) => {
     // Vai ser chamado algo como: sort_by: high-to-low (radio)
     setValues((s) => ({ ...s, [name]: value }));
@@ -50,13 +55,11 @@ const ExploreSidebar = ({
   const handleCheckbox = (name: string, value: string) => {
     const currentList = (values[name] as []) || [];
     // JUntando o que tinha com o que tem de novo apenas, sem repetição.
-
     setValues((s) => ({ ...s, [name]: xor(currentList, [value]) }));
-    console.log(values);
   };
 
-  const handleFilter = () => {
-    onFilter(values);
+  const handleFilterMenu = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -113,7 +116,7 @@ const ExploreSidebar = ({
         ))}
       </S.Content>
       <S.Footer>
-        <Button fullWidth size="medium" onClick={handleFilter}>
+        <Button fullWidth size="medium" onClick={handleFilterMenu}>
           Filter
         </Button>
       </S.Footer>

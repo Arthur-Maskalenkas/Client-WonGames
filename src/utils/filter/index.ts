@@ -40,14 +40,15 @@ export const parseQueryStringToFilter = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const obj: any = {};
 
-  // queryString = {platforms: ['windows','linux']}
-  // filterItems = {name: 'platforms', type: 'checkbox'}
+  // queryString = {developers: 'Rockstar games'}
+  // filterItems = {name: 'developers', type: 'checkbox'}
   Object.keys(queryString).forEach((key) => {
     // Esta encontrando o tipo e definindo se é array
     const item = filterItems?.find((item) => item.name === key);
     const isCheckBox = item?.type === 'checkbox';
     const isArray = Array.isArray(queryString[key]);
 
+    // developers: 'rockstar games'  => ['rockstar games']
     obj[key] = !isArray && isCheckBox ? [queryString[key]] : queryString[key];
   });
 
