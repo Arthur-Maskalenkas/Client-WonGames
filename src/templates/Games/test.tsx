@@ -13,7 +13,18 @@ import apolloCache from 'utils/apolloCache';
 // query -> Não tem o elemento
 // find -> processos assincronos
 
-// Sempre passar o typename
+// aonde tiver chamando o next/router, use o useRouter
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const useRouter = jest.spyOn(require('next/router'), 'useRouter');
+const push = jest.fn();
+
+useRouter.mockImplementation(() => ({
+  push,
+  query: '',
+  asPath: '',
+  route: '/',
+}));
+
 jest.mock('templates/Base', () => ({
   __esModule: true,
   default: function Mock({ children }: { children: React.ReactNode }) {
@@ -38,11 +49,6 @@ describe('<Games />', () => {
 
     expect(screen.getByText(/loading.../i)).toBeInTheDocument();
   });
-
-  // Tem que ser igualzinho ao template
-  // const { data, loading, fetchMore } = useQueryGames({
-  //   variables: { limit: 15 },
-  // });
 
   it('vai renderizar as sessões', async () => {
     renderWithTheme(
