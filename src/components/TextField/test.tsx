@@ -56,6 +56,7 @@ describe('<TextField />', () => {
       expect(input).toHaveValue(text);
       expect(onInput).toHaveBeenCalledTimes(text.length);
     });
+
     expect(onInput).toHaveBeenCalledWith(text);
   });
 

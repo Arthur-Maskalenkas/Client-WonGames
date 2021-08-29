@@ -15,6 +15,7 @@ import * as S from './styles';
 import { KeyboardArrowDown as ArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown';
 
 import { ParsedUrlQueryInput } from 'querystring';
+import Empty from 'components/Empty';
 
 export type GamesTemplateProps = {
   filterItems: ItemProps[];
@@ -64,18 +65,28 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
           <h1 style={{ color: 'white' }}>loading...</h1>
         ) : (
           <section>
-            <Grid>
-              {data?.games.map((game) => (
-                <GameCard
-                  key={game.slug}
-                  title={game.name}
-                  developer={game.developers[0].name}
-                  slug={game.slug}
-                  img={`${game.cover?.url}`}
-                  price={game.price}
-                />
-              ))}
-            </Grid>
+            {data?.games.length ? (
+              <>
+                <Grid>
+                  {data?.games.map((game) => (
+                    <GameCard
+                      key={game.slug}
+                      title={game.name}
+                      developer={game.developers[0].name}
+                      slug={game.slug}
+                      img={`${game.cover?.url}`}
+                      price={game.price}
+                    />
+                  ))}
+                </Grid>
+              </>
+            ) : (
+              <Empty
+                title=":("
+                description="We didn't find any games with this filter"
+                hasLink
+              />
+            )}
 
             <S.ShowMore role="button" onClick={handleShowMore}>
               <p>Show More</p>
