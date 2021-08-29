@@ -53,8 +53,9 @@ const ExploreSidebar = ({
   };
 
   const handleCheckbox = (name: string, value: string) => {
-    const currentList = (values[name] as []) || [];
     // JUntando o que tinha com o que tem de novo apenas, sem repetição.
+    // Vai ser chamado algo como: developers: ['xx','yy']
+    const currentList = (values[name] as []) || [];
     setValues((s) => ({ ...s, [name]: xor(currentList, [value]) }));
   };
 
