@@ -1,12 +1,15 @@
 import Checkbox from 'components/Checkbox';
 import Radio from 'components/Radio';
 import Heading from 'components/Heading';
+import Button from 'components/Button';
 
 import * as S from './styles';
 
 import { useState } from 'react';
-import Button from 'components/Button';
+import xor from 'lodash.xor';
+
 import { Close, FilterList } from '@styled-icons/material-outlined';
+import { ParsedUrlQueryInput } from 'querystring';
 
 type Field = {
   label: string;
@@ -20,9 +23,7 @@ export type ItemProps = {
   fields: Field[];
 };
 
-// array de atributos dinamicos. Pode se criar windows: true, sort_by:
-// É boolean para checkbox e para radio é string
-type Values = { [field: string]: boolean | string };
+type Values = ParsedUrlQueryInput;
 
 export type ExploreSidebarProps = {
   items: ItemProps[];
@@ -41,9 +42,17 @@ const ExploreSidebar = ({
   const [values, setValues] = useState(initialValues);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleChange = (name: string, value: boolean | string) => {
-    // Vai pegar todos os valores antigos e adicionar o novo valor
+  const handleRadio = (name: string, value: boolean | string) => {
+    // Vai ser chamado algo como: sort_by: high-to-low (radio)
     setValues((s) => ({ ...s, [name]: value }));
+  };
+
+  const handleCheckbox = (name: string, value: string) => {
+    const currentList = (values[name] as []) || [];
+    // JUntando o que tinha com o que tem de novo apenas, sem repetição.
+
+    setValues((s) => ({ ...s, [name]: xor(currentList, [value]) }));
+    console.log(values);
   };
 
   const handleFilter = () => {
@@ -61,6 +70,8 @@ const ExploreSidebar = ({
       </S.IconWrapper>
 
       <S.Content>
+        {/* item = { name: 'platforms', type: 'checkbox'} */}
+        {/* field = { label: 'Windows', name: 'windows'} */}
         {items.map((item) => (
           <S.Items key={item.title}>
             <Heading lineBottom lineColor="secondary" size="small">
@@ -74,8 +85,12 @@ const ExploreSidebar = ({
                   name={field.name}
                   label={field.label}
                   labelFor={field.name}
-                  isChecked={!!values[field.name]} // exemplo: {[windows: true]}
-                  onCheck={(v) => handleChange(field.name, v)} // windows, true
+                  // Transformando em array e verificando se inclui o field. Se incluir ele esta marcado.
+                  // https://stackoverflow.com/questions/55781559/what-does-the-as-keyword-do
+                  isChecked={(values[item.name] as string[])?.includes(
+                    field.name,
+                  )}
+                  onCheck={() => handleCheckbox(item.name, field.name)}
                 />
               ))}
 
@@ -88,10 +103,10 @@ const ExploreSidebar = ({
                   name={item.name}
                   label={field.label}
                   labelFor={field.name}
-                  // low-to-high === values[sort_by] (low-to-high)
-                  defaultChecked={field.name === values[item.name]}
-                  // sort_by, low-to-high
-                  onChange={() => handleChange(item.name, field.name)}
+                  defaultChecked={
+                    String(field.name) === String(values[item.name])
+                  }
+                  onChange={() => handleRadio(item.name, field.name)}
                 />
               ))}
           </S.Items>
