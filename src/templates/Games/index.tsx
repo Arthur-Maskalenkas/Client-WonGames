@@ -37,6 +37,12 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
     },
   });
 
+  if (!data) return <p>loading...</p>;
+
+  const { games, gamesConnection } = data;
+
+  const hasMoreGames = games.length < (gamesConnection?.values?.length || 0);
+
   const handleFilter = (items: ParsedUrlQueryInput) => {
     push({ pathname: '/games', query: items });
     return;
@@ -87,11 +93,12 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
                 hasLink
               />
             )}
-
-            <S.ShowMore role="button" onClick={handleShowMore}>
-              <p>Show More</p>
-              <ArrowDown size={35} />
-            </S.ShowMore>
+            {hasMoreGames && (
+              <S.ShowMore role="button" onClick={handleShowMore}>
+                <p>Show More</p>
+                <ArrowDown size={35} />
+              </S.ShowMore>
+            )}
           </section>
         )}
       </S.Main>

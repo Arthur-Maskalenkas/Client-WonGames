@@ -1,16 +1,26 @@
 import { QUERY_GAMES } from 'graphql/queries/games';
 
-// O result eu manipulo,ja a query não. Tem que ser a mesma do template.
 // Ao clicar ja vai ter o primeiro item, por isso o start 1
+export const noGamesMock = {
+  request: {
+    limit: 15,
+    query: QUERY_GAMES,
+    variables: { limit: 15, where: {} },
+  },
+  result: {
+    data: {
+      games: [],
+      gamesConnection: {
+        values: [],
+        __typename: 'GameConnection',
+      },
+    },
+  },
+};
 
-// Tem que ser igualzinho ao template as variaveis e query
-// const { data, loading, fetchMore } = useQueryGames({
-//   variables: { limit: 15 },
-// });
-
-// Sempre passar o typename
 export const gamesMock = {
   request: {
+    limit: 15,
     query: QUERY_GAMES,
     variables: { limit: 15, where: {} },
   },
@@ -28,12 +38,17 @@ export const gamesMock = {
           __typename: 'Game',
         },
       ],
+      gamesConnection: {
+        values: [{ id: '1' }, { id: '2' }],
+        __typename: 'GameConnection',
+      },
     },
   },
 };
 
 export const fetchMoreMock = {
   request: {
+    limit: 15,
     query: QUERY_GAMES,
     variables: { limit: 15, where: {}, start: 1 },
   },
@@ -51,6 +66,10 @@ export const fetchMoreMock = {
           __typename: 'Game',
         },
       ],
+      gamesConnection: {
+        values: [{ id: '1' }, { id: '2' }],
+        __typename: 'GameConnection',
+      },
     },
   },
 };

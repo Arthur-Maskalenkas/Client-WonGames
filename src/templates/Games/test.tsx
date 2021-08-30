@@ -2,7 +2,7 @@ import { renderWithTheme } from 'utils/tests/helpers';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen } from '@testing-library/react';
 
-import { fetchMoreMock, gamesMock } from './mocks';
+import { fetchMoreMock, gamesMock, noGamesMock } from './mocks';
 import filterItemsMock from 'components/ExploreSidebar/mock';
 
 import Games from '.';
@@ -43,7 +43,7 @@ jest.mock('templates/Base', () => ({
 describe('<Games />', () => {
   it('vai renderizar empty quando não encontrar nenhum jogo', async () => {
     renderWithTheme(
-      <MockedProvider mocks={[]} addTypename={false}>
+      <MockedProvider mocks={[noGamesMock]} addTypename={false}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>,
     );
