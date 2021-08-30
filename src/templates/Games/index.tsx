@@ -27,6 +27,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
 
   // O data ja existe graças ao next
   const { data, loading, fetchMore } = useQueryGames({
+    notifyOnNetworkStatusChange: true,
     variables: {
       limit: 15,
       where: parseQueryStringToWhere({
@@ -67,40 +68,45 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
         />
 
         {/* O loading nunca vai aparecer. Nunca vai ter um estado de loading no inicio ja que toda vez que bater na pagina ja vai ter dado graças ao /pages/games */}
-        {loading ? (
-          <h1 style={{ color: 'white' }}>loading...</h1>
-        ) : (
-          <section>
-            {data?.games.length ? (
-              <>
-                <Grid>
-                  {data?.games.map((game) => (
-                    <GameCard
-                      key={game.slug}
-                      title={game.name}
-                      developer={game.developers[0].name}
-                      slug={game.slug}
-                      img={`${game.cover?.url}`}
-                      price={game.price}
-                    />
-                  ))}
-                </Grid>
-              </>
-            ) : (
-              <Empty
-                title=":("
-                description="We didn't find any games with this filter"
-                hasLink
-              />
-            )}
-            {hasMoreGames && (
-              <S.ShowMore role="button" onClick={handleShowMore}>
-                <p>Show More</p>
-                <ArrowDown size={35} />
-              </S.ShowMore>
-            )}
-          </section>
-        )}
+        <section>
+          {data?.games.length ? (
+            <>
+              <Grid>
+                {data?.games.map((game) => (
+                  <GameCard
+                    key={game.slug}
+                    title={game.name}
+                    developer={game.developers[0].name}
+                    slug={game.slug}
+                    img={`${game.cover?.url}`}
+                    price={game.price}
+                  />
+                ))}
+              </Grid>
+            </>
+          ) : (
+            <Empty
+              title=":("
+              description="We didn't find any games with this filter"
+              hasLink
+            />
+          )}
+          {hasMoreGames && (
+            <S.ShowMore>
+              {loading ? (
+                <S.ShowMoreLoading
+                  src="/img/dots.svg"
+                  alt="Loading more games..."
+                />
+              ) : (
+                <S.ShowMoreButton role="button" onClick={handleShowMore}>
+                  <p>Show More</p>
+                  <ArrowDown size={35} />
+                </S.ShowMoreButton>
+              )}
+            </S.ShowMore>
+          )}
+        </section>
       </S.Main>
     </Base>
   );
