@@ -31,7 +31,7 @@ export const IconWrapper = styled.div`
 export const MenuGroup = styled.div`
   ${({ theme }) => css`
     display: flex;
-    flex-grow: 1;
+    flex: 1;
     justify-content: flex-end;
     align-items: center;
     > div {
