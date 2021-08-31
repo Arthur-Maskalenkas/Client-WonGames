@@ -44,8 +44,9 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
 
   const hasMoreGames = games.length < (gamesConnection?.values?.length || 0);
 
+  // Fazendo com que a pagina não vá para o topo quando atualizada
   const handleFilter = (items: ParsedUrlQueryInput) => {
-    push({ pathname: '/games', query: items });
+    push({ pathname: '/games', query: items }, undefined, { scroll: false });
     return;
   };
 
