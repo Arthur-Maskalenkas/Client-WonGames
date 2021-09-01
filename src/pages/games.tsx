@@ -96,6 +96,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   return {
     props: {
       // Extraindo os dados da query e passando para o client
+      // Caso uma pesquisa ja tenha sido feita, não vai pesquisar de novo essa mesma pesquisa, pois vai tentar extrair do cache antes de pesquisar na pagina
       initialApolloState: apolloClient.cache.extract(),
       filterItems: filterItems,
     },

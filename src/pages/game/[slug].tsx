@@ -40,7 +40,7 @@ export default function Index(props: GameTemplateProps) {
 export async function getStaticPaths() {
   const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
     query: QUERY_GAMES,
-    variables: { limit: 15 },
+    variables: { limit: 9 },
   });
 
   // Puxando a propriedade slug da query
@@ -49,20 +49,20 @@ export async function getStaticPaths() {
   }));
 
   // Caso a pagina não exista, ele vai correr atras (fallback)
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 /*
 // Aqui é aonde alimenta os dados da pagina
 */
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // Data games
   const { data } = await apolloClient.query<
     QueryGameBySlug,
     QueryGameBySlugVariables
   >({
     query: QUERY_GAME_BY_SLUG,
     variables: { slug: `${params?.slug}` },
+    fetchPolicy: 'no-cache',
   });
 
   // Retornando pagina de erro caso não encontre nada na query
@@ -88,8 +88,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   return {
+    revalidate: 60,
     props: {
-      revalidate: 60,
       cover: `${game.cover?.src}`,
       gameInfo: {
         title: game.name,
