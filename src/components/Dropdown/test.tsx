@@ -32,4 +32,29 @@ describe('<Dropdown />', () => {
     expect(dropdownElement.getAttribute('aria-hidden')).toBe('true');
     expect(dropdownElement).toHaveStyle({ opacity: 0 });
   });
+
+  it('vai abrir um overlay ao clicar no dropdown', () => {
+    renderWithTheme(<Dropdown {...props} />);
+
+    const dropdownElement = screen.getByText(/um titulo/i);
+    const overlay = screen.getByTestId('overlay');
+
+    // Verifica se o overlay esta desativado
+    expect(overlay).toHaveStyle({ opacity: '0' });
+    expect(overlay.getAttribute('aria-hidden')).toBe('true');
+
+    // Clica no dropdown
+    userEvent.click(dropdownElement);
+
+    // Verifica se o overlay esta ativado
+    expect(overlay).toHaveStyle({ opacity: '1' });
+    expect(overlay.getAttribute('aria-hidden')).toBe('false');
+
+    // Clica no botão de fechar o dropdown
+    userEvent.click(dropdownElement);
+
+    // Verifica se o dropdown esta desativado
+    expect(overlay).toHaveStyle({ opacity: '0' });
+    expect(overlay.getAttribute('aria-hidden')).toBe('true');
+  });
 });

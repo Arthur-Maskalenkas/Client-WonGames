@@ -26,13 +26,23 @@ export const Wrapper = styled.main<WrapperProps>`
     position: relative;
     width: max-content;
 
-    ${Content} {
+    ${Content}, ${Overlay} {
       /* Auxiliando a transformação da propriedade transform */
       transition: transform 0.2s ease-in, opacity ${theme.transition.default};
 
       ${isOpen && wrapperModifiers.open()}
       ${!isOpen && wrapperModifiers.close()}
     }
+  `}
+`;
+
+export const Overlay = styled.div`
+  ${({ theme }) => css`
+    /* Opacidade com 0.5 */
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    inset: 0 0 0 0;
+    z-index: ${theme.layers.overlay};
   `}
 `;
 
@@ -44,6 +54,8 @@ export const Title = styled.div`
     display: flex;
     align-items: center;
     padding-right: 2.4rem;
+    /* Sempre acima do overlay */
+    z-index: ${theme.layers.alwaysOnTop};
   `}
 `;
 
@@ -56,6 +68,7 @@ export const Content = styled.div`
     margin-top: ${theme.spacings.small};
     position: absolute;
     right: 0;
+    z-index: ${theme.layers.alwaysOnTop};
 
     /* Setinha */
     &::before {
