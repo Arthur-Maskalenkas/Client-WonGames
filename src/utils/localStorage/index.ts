@@ -13,8 +13,6 @@ export function setStorageItem(key: string, value: string[]) {
   if (typeof window === 'undefined') return;
 
   const data = JSON.stringify(value);
-  return window.localStorage.setItem(
-    `${APP_KEY}_${key}`,
-    JSON.stringify(value),
-  );
+
+  return window.localStorage.setItem(`${APP_KEY}_${key}`, data);
 }
