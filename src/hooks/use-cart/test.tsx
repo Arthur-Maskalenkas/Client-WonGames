@@ -23,5 +23,13 @@ describe('useCart', () => {
     await waitForNextUpdate();
 
     expect(result.current.items).toStrictEqual(cartItems);
+    expect(result.current.quantity).toBe(2);
+    expect(result.current.total).toBe('$21.00');
   });
 });
+
+// Fluxo
+// O teste passa mock de query com jogos de id [1,2]
+// O teste coloca no storageItem os ids [1,2]
+// O cart é inicializado e pega esses ids [1,2] do storage
+// O cart usa a query mokada para buscar o jogo através dos ids [1,2]

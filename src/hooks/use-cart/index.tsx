@@ -4,6 +4,7 @@ import { useState, useContext, createContext } from 'react';
 import formatPrice from 'utils/format-price';
 import { getStorageItem } from 'utils/localStorage';
 import { cartMapper } from 'utils/mappers';
+import { gamesMock } from './mock';
 
 const CART_KEY = 'cartItems';
 
@@ -15,9 +16,9 @@ type CartItem = {
 };
 
 // Props do cartContext
-export type CartContextData = { items: CartItem[] };
+export type CartContextData = { items: CartItem[]; quantity: number; total: string };
 
-export const CartContextDefaultValues = { items: [] };
+export const CartContextDefaultValues = { items: [], quantity: 0, total: '$0.00' };
 
 export const CartContext = createContext<CartContextData>(CartContextDefaultValues);
 
@@ -26,10 +27,9 @@ export type CartproviderProps = {
 };
 
 const CartProvider = ({ children }: CartproviderProps) => {
-  // Vai possuir apenas ids
   const [cartItems, setCartItems] = useState<string[]>([]);
 
-  // No next não tem window na geração do static/ssr. Por isso eu vou driblar isso a partir do useEffect
+  // No next não tem window na geração do static/ssr.
   useEffect(() => {
     const data = getStorageItem(CART_KEY);
 
@@ -48,11 +48,17 @@ const CartProvider = ({ children }: CartproviderProps) => {
     },
   });
 
+  const total = data?.games.reduce((acc, game) => {
+    return acc + game.price;
+  }, 0);
+
   // Disponibilizando os items pego pelo storage
   return (
     <CartContext.Provider
       value={{
         items: cartMapper(data?.games),
+        quantity: cartItems.length,
+        total: formatPrice(total || 0),
       }}
     >
       {children}
@@ -64,10 +70,3 @@ const useCart = () => useContext(CartContext);
 // const { items, quantity } = useCart()
 
 export { CartProvider, useCart };
-
-// Fluxo:
-
-// > Algo vai setar na chave CartItems dentro do localStorage os ids [1,2]
-// > O use-cart vai ser chamado e vai pegar os valores [1,2] definidos dentro do localStorage, com o getStorage
-// > O use-cart vai jogar os valores [1,2] do localStorage no estado cartItems, com o setCartItems
-// > Por fim ele vai fazer uma query buscando os jogos com ids [1,2]
