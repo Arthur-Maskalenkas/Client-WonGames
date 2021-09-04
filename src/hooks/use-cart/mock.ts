@@ -41,6 +41,7 @@ export const gamesMock = {
   },
 };
 
+// O Objeto que eu espero, com os dados ja transformados
 export const cartItems = [
   {
     id: '1',

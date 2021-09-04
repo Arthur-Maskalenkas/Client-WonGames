@@ -7,55 +7,55 @@ import {
 import formatPrice from 'utils/format-price';
 
 export const bannerMapper = (banners: QueryHome_banners[]) => {
-  return banners.map((banner) => ({
-    img: banner.image?.url,
-    title: banner.title,
-    subtitle: banner.subtitle,
-    buttonLabel: banner.button?.label,
-    buttonLink: banner.button?.link,
-    ribbon: banner.ribbon?.text || null,
-    ribbonColor: banner.ribbon?.color || null,
-    ribbonSize: banner.ribbon?.size || null,
-  }));
+  return banners
+    ? banners.map((banner) => ({
+        img: banner.image?.url,
+        title: banner.title,
+        subtitle: banner.subtitle,
+        buttonLabel: banner.button?.label,
+        buttonLink: banner.button?.link,
+        ribbon: banner.ribbon?.text || null,
+        ribbonColor: banner.ribbon?.color || null,
+        ribbonSize: banner.ribbon?.size || null,
+      }))
+    : [];
 };
 
 export const gamesMapper = (games: QueryHome_freeGames[] | null | undefined) => {
-  return (
-    games &&
-    games.map((game) => ({
-      title: game.name,
-      slug: game.slug,
-      developer: game.developers[0].name,
-      img: game.cover?.url,
-      price: game.price,
-    }))
-  );
+  return games
+    ? games.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0].name,
+        img: game.cover?.url,
+        price: game.price,
+      }))
+    : [];
 };
 
 export const highlightMapper = (
   highlight: QueryHome_sections_freeGames_highlight | null | undefined,
 ) => {
-  return (
-    highlight && {
-      title: highlight?.title,
-      subtitle: highlight?.subtitle,
-      backgroundImage: highlight?.background?.url,
-      floatImage: highlight?.floatImage?.url || null,
-      buttonLabel: highlight?.buttonLabel,
-      buttonLink: highlight?.buttonLink,
-      alignment: highlight?.alignment,
-    }
-  );
+  return highlight
+    ? {
+        title: highlight?.title,
+        subtitle: highlight?.subtitle,
+        backgroundImage: highlight?.background?.url,
+        floatImage: highlight?.floatImage?.url || null,
+        buttonLabel: highlight?.buttonLabel,
+        buttonLink: highlight?.buttonLink,
+        alignment: highlight?.alignment,
+      }
+    : {};
 };
 
-export const cartMapper = (cart: QueryGames_games[] | null | undefined) => {
-  return (
-    cart &&
-    cart.map((game) => ({
-      id: game.id,
-      img: game.cover?.url,
-      price: formatPrice(game.price),
-      title: game.name,
-    }))
-  );
+export const cartMapper = (cart: QueryGames_games[] | undefined) => {
+  return cart
+    ? cart.map((game) => ({
+        id: game.id,
+        img: game.cover?.url,
+        price: formatPrice(game.price),
+        title: game.name,
+      }))
+    : [];
 };

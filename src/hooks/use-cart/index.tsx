@@ -9,7 +9,7 @@ const CART_KEY = 'cartItems';
 
 type CartItem = {
   id: string;
-  img: string;
+  img: string | undefined;
   title: string;
   price: string;
 };

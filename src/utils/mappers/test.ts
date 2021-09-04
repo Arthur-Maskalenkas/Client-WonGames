@@ -104,6 +104,10 @@ describe('highlightMapper()', () => {
 });
 
 describe('cartMapper()', () => {
+  it('vai retornar vazio se não tiver games', () => {
+    expect(cartMapper(undefined)).toStrictEqual([]);
+  });
+
   it('Retorna o formato correto quanto mapeado', () => {
     const cart: QueryGames_games[] = [
       {
