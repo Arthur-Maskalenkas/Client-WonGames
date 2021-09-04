@@ -3,13 +3,14 @@ import {
   ENUM_COMPONENTPAGERIBBON_COLOR,
   ENUM_COMPONENTPAGERIBBON_SIZE,
 } from 'graphql/generated/globalTypes';
+import { QueryGames_games } from 'graphql/generated/QueryGames';
 
 import {
   QueryHome_banners,
   QueryHome_newGames,
   QueryHome_sections_freeGames_highlight,
 } from 'graphql/generated/QueryHome';
-import { bannerMapper, gamesMapper, highlightMapper } from '.';
+import { bannerMapper, cartMapper, gamesMapper, highlightMapper } from '.';
 
 describe('bannerMapper()', () => {
   it('retorna o formato certo quando mapeado', () => {
@@ -99,5 +100,30 @@ describe('highlightMapper()', () => {
       alignment: 'left',
       floatImage: 'urlFloatImage',
     });
+  });
+});
+
+describe('cartMapper()', () => {
+  it('Retorna o formato correto quanto mapeado', () => {
+    const cart: QueryGames_games[] = [
+      {
+        __typename: 'Game',
+        cover: { __typename: 'UploadFile', url: 'urlCart' },
+        developers: [{ name: 'developerCart', __typename: 'Developer' }],
+        id: '1',
+        name: 'nameCart',
+        price: 10,
+        slug: 'name-cart',
+      },
+    ];
+
+    expect(cartMapper(cart)).toStrictEqual([
+      {
+        id: '1',
+        img: 'urlCart',
+        price: '$10.00',
+        title: 'nameCart',
+      },
+    ]);
   });
 });
