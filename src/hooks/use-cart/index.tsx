@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState, useContext, createContext } from 'react';
 import formatPrice from 'utils/format-price';
 import { getStorageItem } from 'utils/localStorage';
+import { cartMapper } from 'utils/mappers';
 
 const CART_KEY = 'cartItems';
 
@@ -51,12 +52,7 @@ const CartProvider = ({ children }: CartproviderProps) => {
   return (
     <CartContext.Provider
       value={{
-        items: data?.games.map((game) => ({
-          id: game.id,
-          img: game.cover?.url,
-          price: formatPrice(game.price),
-          title: game.name,
-        })),
+        items: cartMapper(data?.games),
       }}
     >
       {children}
