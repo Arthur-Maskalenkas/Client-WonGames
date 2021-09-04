@@ -1,6 +1,7 @@
 import { useQueryGames } from 'graphql/queries/games';
 import { useEffect } from 'react';
 import { useState, useContext, createContext } from 'react';
+import formatPrice from 'utils/format-price';
 import { getStorageItem } from 'utils/localStorage';
 
 const CART_KEY = 'cartItems';
@@ -15,7 +16,6 @@ type CartItem = {
 // Props do cartContext
 export type CartContextData = { items: CartItem[] };
 
-// Toda a lógica do carrinho estará aqui.
 export const CartContextDefaultValues = { items: [] };
 
 export const CartContext = createContext<CartContextData>(CartContextDefaultValues);
@@ -24,13 +24,11 @@ export type CartproviderProps = {
   children: React.ReactNode;
 };
 
-// <CartProvider>{children}</CartProvider>
 const CartProvider = ({ children }: CartproviderProps) => {
   // Vai possuir apenas ids
   const [cartItems, setCartItems] = useState<string[]>([]);
 
   // No next não tem window na geração do static/ssr. Por isso eu vou driblar isso a partir do useEffect
-  // Pegando os valores definidios através do setStorageItem
   useEffect(() => {
     const data = getStorageItem(CART_KEY);
 
@@ -51,7 +49,18 @@ const CartProvider = ({ children }: CartproviderProps) => {
 
   // Disponibilizando os items pego pelo storage
   return (
-    <CartContext.Provider value={{ items: data?.games }}>{children}</CartContext.Provider>
+    <CartContext.Provider
+      value={{
+        items: data?.games.map((game) => ({
+          id: game.id,
+          img: game.cover?.url,
+          price: formatPrice(game.price),
+          title: game.name,
+        })),
+      }}
+    >
+      {children}
+    </CartContext.Provider>
   );
 };
 
@@ -60,7 +69,9 @@ const useCart = () => useContext(CartContext);
 
 export { CartProvider, useCart };
 
-// O carrinho (estado de cartItem) vai funcionar a base de ids, e a query vai buscar essa lista de ids
-// ASsim que carregar o next, o useEffect vai verificar se existem items no storage e passar esses items (ids) para o estado
-// CartContext.provider vai disponibilizar o value
-// CartContextData são as props do CartContext
+// Fluxo:
+
+// > Algo vai setar na chave CartItems dentro do localStorage os ids [1,2]
+// > O use-cart vai ser chamado e vai pegar os valores [1,2] definidos dentro do localStorage, com o getStorage
+// > O use-cart vai jogar os valores [1,2] do localStorage no estado cartItems, com o setCartItems
+// > Por fim ele vai fazer uma query buscando os jogos com ids [1,2]
