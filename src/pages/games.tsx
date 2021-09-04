@@ -72,12 +72,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     ],
   };
 
-  const filterItems = [
-    filterSort,
-    filterPrice,
-    filterPlatforms,
-    filterCategories,
-  ];
+  const filterItems = [filterSort, filterPrice, filterPlatforms, filterCategories];
 
   // Pegando os dados para ja ter um estado inicial do lado do client, e passando esses dados para o client com initialApolloState
   // O data do client ja existe, então sequer ele vai precisar rodar a query. Por isso o loading nunca vai aparecer

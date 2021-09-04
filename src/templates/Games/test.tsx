@@ -67,9 +67,7 @@ describe('<Games />', () => {
     expect(await screen.findByText(/price/i)).toBeInTheDocument();
     expect(await screen.findByText(/sample game/i)).toBeInTheDocument();
 
-    expect(
-      await screen.getByRole('button', { name: /show more/i }),
-    ).toBeInTheDocument();
+    expect(await screen.getByRole('button', { name: /show more/i })).toBeInTheDocument();
   });
 
   // O apollo intercepta apenas uma vez a query, e depois caso você tente a mesma query ele vai quebrar falando que você ja usou o provider uma vez. Todas as querys que eu quiser mokar, eu vou ter que passar na lista de mocks

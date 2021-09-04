@@ -1,9 +1,6 @@
 //https://www.apollographql.com/docs/react/pagination/core-api/
 import { useRouter } from 'next/router';
-import {
-  parseQueryStringToFilter,
-  parseQueryStringToWhere,
-} from 'utils/filter';
+import { parseQueryStringToFilter, parseQueryStringToWhere } from 'utils/filter';
 import { useQueryGames } from 'graphql/queries/games';
 
 import ExploreSidebar, { ItemProps } from 'components/ExploreSidebar';
@@ -94,10 +91,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
           {hasMoreGames && (
             <S.ShowMore>
               {loading ? (
-                <S.ShowMoreLoading
-                  src="/img/dots.svg"
-                  alt="Loading more games..."
-                />
+                <S.ShowMoreLoading src="/img/dots.svg" alt="Loading more games..." />
               ) : (
                 <S.ShowMoreButton role="button" onClick={handleShowMore}>
                   <p>Show More</p>
