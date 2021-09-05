@@ -8,10 +8,7 @@ type ParseArgs = {
   filterItems: Pick<ItemProps, 'type' | 'name'>[];
 };
 
-export const parseQueryStringToWhere = ({
-  queryString,
-  filterItems,
-}: ParseArgs) => {
+export const parseQueryStringToWhere = ({ queryString, filterItems }: ParseArgs) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const obj: any = {};
 
@@ -25,18 +22,13 @@ export const parseQueryStringToWhere = ({
       const isCheckBox = item?.type === 'checkbox';
 
       // Pegando o valor e colocando dentro do objeto
-      obj[key] = !isCheckBox
-        ? queryString[key]
-        : { name_contains: queryString[key] };
+      obj[key] = !isCheckBox ? queryString[key] : { name_contains: queryString[key] };
     });
 
   return obj;
 };
 
-export const parseQueryStringToFilter = ({
-  queryString,
-  filterItems,
-}: ParseArgs) => {
+export const parseQueryStringToFilter = ({ queryString, filterItems }: ParseArgs) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const obj: any = {};
 
