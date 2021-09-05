@@ -17,10 +17,3 @@ export const withItems: Story = (args) => <CartIcon {...args} />;
 withItems.args = {
   quantity: 6,
 };
-
-// Especifico, para não mudar
-// withItems.args = {
-//   cartContextValue: {
-//     quantity: 6,
-//   },
-// };
