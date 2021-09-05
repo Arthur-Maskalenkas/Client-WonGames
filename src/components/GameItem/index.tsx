@@ -9,20 +9,14 @@ export type PaymentInfoProps = {
 };
 
 export type GameItemProps = {
-  img: string;
+  img: string | undefined;
   title: string;
   price: string;
   downloadLink?: string;
   paymentInfo?: PaymentInfoProps;
 };
 
-const GameItem = ({
-  img,
-  title,
-  price,
-  downloadLink,
-  paymentInfo,
-}: GameItemProps) => (
+const GameItem = ({ img, title, price, downloadLink, paymentInfo }: GameItemProps) => (
   <S.Wrapper>
     <S.GameContent>
       <S.ImageBox>
