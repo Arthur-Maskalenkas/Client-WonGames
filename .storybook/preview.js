@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'styled-components'
+import {CartContext, CartContextDefaultValues} from '../src/hooks/use-cart'
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
 
@@ -18,11 +19,14 @@ export const parameters = {
   }
 }
 
+// Se existir cartContextValue pega ele, senão, pega os args mesmo, ou vice versa, pois pega o primeiro que ser passado.
 export const decorators = [
-  (Story) => (
+  (Story, context) => (
     <ThemeProvider theme={theme}>
-      <GlobalStyles removeBg />
-      <Story />
+      <CartContext.Provider value={{...CartContextDefaultValues, ...(context?.args?.cartContextValue || {}),...context.args}}>
+        <GlobalStyles removeBg />
+        <Story />
+      </CartContext.Provider>
     </ThemeProvider>
   )
 ]
