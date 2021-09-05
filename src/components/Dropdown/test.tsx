@@ -1,6 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { render, screen } from 'utils/test-utils';
 import userEvent from '@testing-library/user-event';
-import { renderWithTheme } from 'utils/tests/helpers';
 
 import Dropdown, { DropdownProps } from '.';
 
@@ -8,13 +7,13 @@ const props: DropdownProps = { title: 'um titulo', children: 'um filho' };
 
 describe('<Dropdown />', () => {
   it('vai renderizar o componente', () => {
-    renderWithTheme(<Dropdown {...props} />);
+    render(<Dropdown {...props} />);
 
     expect(screen.getByText(/um titulo/i));
   });
 
   it('vai abrir e fechar o dropdown quando clica no titulo', () => {
-    renderWithTheme(<Dropdown {...props} />);
+    render(<Dropdown {...props} />);
 
     const dropdownElement = screen.getByLabelText(/dropdown/i);
 
@@ -34,7 +33,7 @@ describe('<Dropdown />', () => {
   });
 
   it('vai abrir um overlay ao clicar no dropdown', () => {
-    renderWithTheme(<Dropdown {...props} />);
+    render(<Dropdown {...props} />);
 
     const dropdownElement = screen.getByText(/um titulo/i);
     const overlay = screen.getByTestId('overlay');

@@ -1,12 +1,11 @@
-import { screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
+import userEvent from '@testing-library/user-event';
 
 import { Overlay } from './styles';
 
 import itemsMock from './mock';
 
 import ExploreSidebar from '.';
-import userEvent from '@testing-library/user-event';
 import { css } from 'styled-components';
 
 const props = {
@@ -15,37 +14,29 @@ const props = {
 
 describe('<ExploreSidebar />', () => {
   it('vai renderizar os heading', () => {
-    renderWithTheme(<ExploreSidebar {...props} onFilter={jest.fn} />);
+    render(<ExploreSidebar {...props} onFilter={jest.fn} />);
 
     expect(screen.getByRole('heading', { name: /price/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: /sort by/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: /platforms/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /sort by/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /platforms/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /genre/i })).toBeInTheDocument();
   });
 
   it('vai renderizar os inputs', () => {
-    renderWithTheme(<ExploreSidebar {...props} onFilter={jest.fn} />);
-    expect(
-      screen.getByRole('checkbox', { name: /under \$50/i }),
-    ).toBeInTheDocument();
+    render(<ExploreSidebar {...props} onFilter={jest.fn} />);
+    expect(screen.getByRole('checkbox', { name: /under \$50/i })).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('radio', { name: /low to high/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /low to high/i })).toBeInTheDocument();
   });
 
   it('vai renderizar o botao', () => {
-    renderWithTheme(<ExploreSidebar {...props} onFilter={jest.fn} />);
+    render(<ExploreSidebar {...props} onFilter={jest.fn} />);
 
     expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument();
   });
 
   it('vai ter valores iniciais que vao estar marcados', () => {
-    renderWithTheme(
+    render(
       <ExploreSidebar
         {...props}
         onFilter={jest.fn}
@@ -64,7 +55,7 @@ describe('<ExploreSidebar />', () => {
   it('vai retornar os valores selecionados no onFilter', () => {
     const onFilter = jest.fn();
 
-    renderWithTheme(<ExploreSidebar {...props} onFilter={onFilter} />);
+    render(<ExploreSidebar {...props} onFilter={onFilter} />);
 
     userEvent.click(screen.getByLabelText(/windows/i));
     userEvent.click(screen.getByLabelText(/linux/i));
@@ -82,7 +73,7 @@ describe('<ExploreSidebar />', () => {
   it('vai alternar entre as opões de radio', () => {
     const onFilter = jest.fn();
 
-    renderWithTheme(<ExploreSidebar items={itemsMock} onFilter={onFilter} />);
+    render(<ExploreSidebar items={itemsMock} onFilter={onFilter} />);
 
     userEvent.click(screen.getByLabelText(/low to high/i));
     userEvent.click(screen.getByLabelText(/high to low/i));
@@ -91,9 +82,7 @@ describe('<ExploreSidebar />', () => {
   });
 
   it('should open/close sidebar when filtering on mobile ', () => {
-    const { container } = renderWithTheme(
-      <ExploreSidebar items={itemsMock} onFilter={jest.fn} />,
-    );
+    const { container } = render(<ExploreSidebar items={itemsMock} onFilter={jest.fn} />);
 
     const variant = {
       media: '(max-width:768px)',

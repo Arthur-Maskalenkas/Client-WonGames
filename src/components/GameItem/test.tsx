@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
 
 import GameItem, { GameItemProps, PaymentInfoProps } from '.';
 
@@ -11,16 +10,14 @@ const props: GameItemProps = {
 
 describe('<GameItem />', () => {
   it('deve renderizar a estrutura', () => {
-    renderWithTheme(<GameItem {...props} />);
+    render(<GameItem {...props} />);
 
     expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
       'src',
       props.img,
     );
 
-    expect(
-      screen.getByRole('heading', { name: props.title }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: props.title })).toBeInTheDocument();
 
     expect(screen.getByText(props.price)).toBeInTheDocument();
   });
@@ -28,11 +25,12 @@ describe('<GameItem />', () => {
   it('Isso deve renderizar com o link de download', () => {
     const downloadLink = 'https://link';
 
-    renderWithTheme(<GameItem {...props} downloadLink={downloadLink} />);
+    render(<GameItem {...props} downloadLink={downloadLink} />);
 
-    expect(
-      screen.getByRole('link', { name: `Get ${props.title} here` }),
-    ).toHaveAttribute('href', downloadLink);
+    expect(screen.getByRole('link', { name: `Get ${props.title} here` })).toHaveAttribute(
+      'href',
+      downloadLink,
+    );
   });
 
   it('Isso deve renderizar as informações de pagamento', () => {
@@ -43,7 +41,7 @@ describe('<GameItem />', () => {
       purchaseDate: 'Purchase made on 07/20/2020 at 20:32',
     };
 
-    renderWithTheme(<GameItem {...props} paymentInfo={paymentInfo} />);
+    render(<GameItem {...props} paymentInfo={paymentInfo} />);
 
     expect(screen.getByRole('img', { name: paymentInfo.flag })).toHaveAttribute(
       'src',

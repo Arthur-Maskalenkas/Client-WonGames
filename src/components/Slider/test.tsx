@@ -1,5 +1,5 @@
 import 'match-media-mock';
-import { render, screen } from '@testing-library/react';
+import { render, screen } from 'utils/test-utils';
 
 import Slider from '.';
 
@@ -12,13 +12,13 @@ describe('<Slider />', () => {
       </Slider>,
     );
 
-    expect(
-      screen.getByText(/item 1/i).parentElement?.parentElement,
-    ).toHaveClass('slick-slide');
+    expect(screen.getByText(/item 1/i).parentElement?.parentElement).toHaveClass(
+      'slick-slide',
+    );
 
-    expect(
-      screen.getByText(/item 2/i).parentElement?.parentElement,
-    ).toHaveClass('slick-slide');
+    expect(screen.getByText(/item 2/i).parentElement?.parentElement).toHaveClass(
+      'slick-slide',
+    );
 
     expect(container.firstChild).toMatchSnapshot();
   });

@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from 'utils/test-utils';
 import theme from 'styles/theme';
-import { renderWithTheme } from 'utils/tests/helpers';
 
 import TextContent, { TextContentProps } from '.';
 
@@ -11,31 +10,25 @@ const props: TextContentProps = {
 
 describe('<TextContent />', () => {
   it('vai renderizar o titulo e o conteudo', () => {
-    renderWithTheme(<TextContent {...props} />);
+    render(<TextContent {...props} />);
 
-    expect(
-      screen.getByRole('heading', { name: /description/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /description/i })).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('heading', { name: /content/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /content/i })).toBeInTheDocument();
   });
 
   it('vai renderizar com o titulo e sem o conteudo', () => {
-    renderWithTheme(<TextContent content={props.content} />);
+    render(<TextContent content={props.content} />);
 
     expect(
       screen.queryByRole('heading', { name: /description/i }),
     ).not.toBeInTheDocument();
 
-    expect(
-      screen.getByRole('heading', { name: /content/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /content/i })).toBeInTheDocument();
   });
 
   it('vai renderizar ', () => {
-    renderWithTheme(<TextContent {...props} />);
+    render(<TextContent {...props} />);
 
     // É dentro do wrapper que tem os estilos. ELe passa para os outros, mas é ele que tem os estilos
     const wrapper = screen.getByRole('heading', {

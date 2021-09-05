@@ -1,6 +1,5 @@
 import 'match-media-mock';
-import { screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
 
 import gamesMock from 'components/GameCardSlider/mock';
 import highlightMock from 'components/Highlight/mock';
@@ -53,11 +52,9 @@ jest.mock('components/Empty', () => ({
 
 describe('<Cart />', () => {
   it('should render sections', () => {
-    renderWithTheme(<Cart {...props} />);
+    render(<Cart {...props} />);
 
-    expect(
-      screen.getByRole('heading', { name: /my cart/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /my cart/i })).toBeInTheDocument();
     expect(screen.getByTestId('Mock Cart')).toBeInTheDocument();
     expect(screen.getByTestId('Mock PaymentOptions')).toBeInTheDocument();
     expect(screen.getByTestId('Mock Showcase')).toBeInTheDocument();
@@ -67,7 +64,7 @@ describe('<Cart />', () => {
   it('vai renderizar o componente empty se não tiver items no carrinho de compras', () => {
     const cartProps = { items: [], total: '$ 430,00' };
 
-    renderWithTheme(<Cart {...props} cart={cartProps} />);
+    render(<Cart {...props} cart={cartProps} />);
 
     expect(screen.getByTestId('Mock Empty')).toBeInTheDocument();
   });

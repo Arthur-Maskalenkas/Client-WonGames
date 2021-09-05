@@ -1,13 +1,12 @@
-import { screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from 'utils/test-utils';
 import userEvent from '@testing-library/user-event';
-import { renderWithTheme } from 'utils/tests/helpers';
 
 import PaymentOptions from '.';
 import cards from './mock';
 
 describe('<PaymentOptions />', () => {
   it('should render the saved card options and the add new card button', () => {
-    renderWithTheme(<PaymentOptions cards={cards} handlePayment={jest.fn} />);
+    render(<PaymentOptions cards={cards} handlePayment={jest.fn} />);
 
     expect(screen.getByLabelText(/4325/)).toBeInTheDocument();
     expect(screen.getByLabelText(/4326/)).toBeInTheDocument();
@@ -15,7 +14,7 @@ describe('<PaymentOptions />', () => {
   });
 
   it('deve selecionar o cartão quando a label for clicada', async () => {
-    renderWithTheme(<PaymentOptions cards={cards} handlePayment={jest.fn} />);
+    render(<PaymentOptions cards={cards} handlePayment={jest.fn} />);
 
     userEvent.click(screen.getByLabelText(/4325/));
     await waitFor(() => {
@@ -25,9 +24,7 @@ describe('<PaymentOptions />', () => {
 
   it('nao deve pertmitir handlePayment se o botão estiver desabilitado, e caso a label for clicada, deve permitir', async () => {
     const handlePayment = jest.fn();
-    renderWithTheme(
-      <PaymentOptions cards={cards} handlePayment={handlePayment} />,
-    );
+    render(<PaymentOptions cards={cards} handlePayment={handlePayment} />);
 
     // CLicando no botao que esta desabilitado
     userEvent.click(screen.getByRole('button', { name: /Buy now/i }));

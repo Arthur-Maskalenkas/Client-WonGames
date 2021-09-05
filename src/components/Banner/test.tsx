@@ -1,5 +1,4 @@
-import { screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
 
 import Banner from '.';
 
@@ -13,31 +12,22 @@ const props = {
 
 describe('<Banner />', () => {
   it('should render correctly', () => {
-    const { container } = renderWithTheme(<Banner {...props} />);
+    const { container } = render(<Banner {...props} />);
 
-    expect(
-      screen.getByRole('heading', { name: /Defy death/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Defy death/i })).toBeInTheDocument();
 
     expect(
       screen.getByRole('heading', { name: /Play the new CrashLands season/i }),
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('img', { name: /Defy death/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /Defy death/i })).toBeInTheDocument();
 
     expect(container.firstChild).toMatchSnapshot();
   });
 
   it('should render a Ribbon', () => {
-    renderWithTheme(
-      <Banner
-        {...props}
-        ribbon="My Ribbon"
-        ribbonSize="small"
-        ribbonColor="secondary"
-      />,
+    render(
+      <Banner {...props} ribbon="My Ribbon" ribbonSize="small" ribbonColor="secondary" />,
     );
 
     const ribbon = screen.getByText(/My Ribbon/i);

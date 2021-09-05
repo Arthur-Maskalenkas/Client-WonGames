@@ -1,5 +1,4 @@
-import { screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
 
 import Empty, { EmptyProps } from '.';
 
@@ -11,7 +10,7 @@ const props: EmptyProps = {
 
 describe('<Empty />', () => {
   it('deve renderizar corretamente', () => {
-    const { container } = renderWithTheme(<Empty {...props} hasLink />);
+    const { container } = render(<Empty {...props} hasLink />);
 
     expect(
       screen.getByRole('image', {
@@ -19,9 +18,7 @@ describe('<Empty />', () => {
       }),
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('heading', { name: /a simple title/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /a simple title/i })).toBeInTheDocument();
 
     expect(screen.getByText(/a simple description/i)).toBeInTheDocument();
 
@@ -35,7 +32,7 @@ describe('<Empty />', () => {
   });
 
   it('não deve renderizar link se o hasLink for falso', () => {
-    renderWithTheme(<Empty {...props} hasLink={false} />);
+    render(<Empty {...props} hasLink={false} />);
 
     expect(
       screen.queryByRole('link', {

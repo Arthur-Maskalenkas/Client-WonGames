@@ -1,6 +1,6 @@
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
+
 import { MockedProvider } from '@apollo/client/testing';
-import { screen } from '@testing-library/react';
 
 import { fetchMoreMock, gamesMock, noGamesMock } from './mocks';
 import filterItemsMock from 'components/ExploreSidebar/mock';
@@ -42,7 +42,7 @@ jest.mock('templates/Base', () => ({
 
 describe('<Games />', () => {
   it('vai renderizar empty quando não encontrar nenhum jogo', async () => {
-    renderWithTheme(
+    render(
       <MockedProvider mocks={[noGamesMock]} addTypename={false}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>,
@@ -54,7 +54,7 @@ describe('<Games />', () => {
   });
 
   it('vai renderizar as sessões', async () => {
-    renderWithTheme(
+    render(
       <MockedProvider mocks={[gamesMock]} addTypename={false}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>,
@@ -72,7 +72,7 @@ describe('<Games />', () => {
 
   // O apollo intercepta apenas uma vez a query, e depois caso você tente a mesma query ele vai quebrar falando que você ja usou o provider uma vez. Todas as querys que eu quiser mokar, eu vou ter que passar na lista de mocks
   it('vai renderizar mais jogos quando o botao mostrar mais for clicado', async () => {
-    renderWithTheme(
+    render(
       <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>,
@@ -86,7 +86,7 @@ describe('<Games />', () => {
   });
 
   it('vai alterar a URL ao selecionar um field', async () => {
-    renderWithTheme(
+    render(
       <MockedProvider mocks={[gamesMock, fetchMoreMock]} cache={apolloCache}>
         <Games filterItems={filterItemsMock} />
       </MockedProvider>,

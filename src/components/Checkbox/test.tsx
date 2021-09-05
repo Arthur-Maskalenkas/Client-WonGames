@@ -1,6 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from 'utils/test-utils';
 import theme from 'styles/theme';
-import { renderWithTheme } from 'utils/tests/helpers';
 
 import userEvent from '@testing-library/user-event';
 
@@ -8,9 +7,7 @@ import Checkbox from '.';
 
 describe('<Checkbox />', () => {
   it('should render with label', () => {
-    const { container } = renderWithTheme(
-      <Checkbox label="checkbox label" labelFor="check" />,
-    );
+    const { container } = render(<Checkbox label="checkbox label" labelFor="check" />);
     // Formas de pegas os inputs/label:
 
     // input a partir da Role
@@ -27,15 +24,13 @@ describe('<Checkbox />', () => {
   });
 
   it('Vai testar se o Checkbox renderiza sem label, caso ela não seja passada', () => {
-    renderWithTheme(<Checkbox />);
+    render(<Checkbox />);
 
     expect(screen.queryByText('checkbox label')).not.toBeInTheDocument();
   });
 
   it('vai testar se o Checkbox é renderizado com uma label preta com a prop labelColor', () => {
-    renderWithTheme(
-      <Checkbox label="checkbox label" labelFor="check" labelColor="black" />,
-    );
+    render(<Checkbox label="checkbox label" labelFor="check" labelColor="black" />);
 
     expect(screen.getByText('checkbox label')).toHaveStyle({
       color: theme.colors.black,
@@ -46,7 +41,7 @@ describe('<Checkbox />', () => {
     // Função mokada. Só serve para saber se const onCHeck foi chamado ou não
     const onCheck = jest.fn();
 
-    renderWithTheme(<Checkbox label="checkbox" onCheck={onCheck} />);
+    render(<Checkbox label="checkbox" onCheck={onCheck} />);
 
     // Verificando se a função passada não é chamada no inicio, sem clique
     expect(onCheck).not.toHaveBeenCalled();
@@ -66,7 +61,7 @@ describe('<Checkbox />', () => {
   it('Vai testar se o Checkbox inicia marcado com a prop isChecked', async () => {
     const onCheck = jest.fn();
 
-    renderWithTheme(<Checkbox label="checkbox" onCheck={onCheck} isChecked />);
+    render(<Checkbox label="checkbox" onCheck={onCheck} isChecked />);
 
     expect(onCheck).not.toHaveBeenCalled();
 
@@ -82,7 +77,7 @@ describe('<Checkbox />', () => {
   });
 
   it('Vai testar se o checkbox esta acessivel com o TAB', async () => {
-    renderWithTheme(<Checkbox label="checkbox" labelFor="checkbox" />);
+    render(<Checkbox label="checkbox" labelFor="checkbox" />);
 
     // Vai verificar se no inicio de tudo é a pagian que esta em foco. Sempre é ela que esta em foco quando inicia
     expect(document.body).toHaveFocus();

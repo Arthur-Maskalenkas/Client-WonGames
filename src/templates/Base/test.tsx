@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
 
 import Base from '.';
 
@@ -23,7 +22,7 @@ jest.mock('components/Footer', () => {
 
 describe('<Base />', () => {
   it('Verifica a renderização do menu, footer e filho', () => {
-    renderWithTheme(
+    render(
       <Base>
         <h1>Heading</h1>
       </Base>,
@@ -31,8 +30,6 @@ describe('<Base />', () => {
 
     expect(screen.getByTestId('Mock Menu')).toBeInTheDocument();
     expect(screen.getByTestId('Mock Footer')).toBeInTheDocument();
-    expect(
-      screen.getByRole('heading', { name: /heading/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /heading/i })).toBeInTheDocument();
   });
 });

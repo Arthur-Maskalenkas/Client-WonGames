@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import { renderWithTheme } from 'utils/tests/helpers';
+import { render, screen } from 'utils/test-utils';
 
 import GameInfo from '.';
 
@@ -11,7 +10,7 @@ const props = {
 
 describe('<GameInfo />', () => {
   it('Vai renderizar o componente', () => {
-    const { container } = renderWithTheme(<GameInfo {...props} />);
+    const { container } = render(<GameInfo {...props} />);
 
     // Esperar por um heading (title)
     expect(screen.getByRole('heading', { name: /My game title/i }));
@@ -26,16 +25,12 @@ describe('<GameInfo />', () => {
   });
 
   it('Vai renderizar os botões', () => {
-    renderWithTheme(<GameInfo {...props} />);
+    render(<GameInfo {...props} />);
 
     // Esperar button add to cart
-    expect(
-      screen.getByRole('button', { name: /add to cart/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /add to cart/i })).toBeInTheDocument();
 
     // Esperar button wish list
-    expect(
-      screen.getByRole('button', { name: /wishlist/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /wishlist/i })).toBeInTheDocument();
   });
 });
