@@ -2,9 +2,8 @@ import { useQueryGames } from 'graphql/queries/games';
 import { useEffect } from 'react';
 import { useState, useContext, createContext } from 'react';
 import formatPrice from 'utils/format-price';
-import { getStorageItem } from 'utils/localStorage';
+import { getStorageItem, setStorageItem } from 'utils/localStorage';
 import { cartMapper } from 'utils/mappers';
-import { gamesMock } from './mock';
 
 const CART_KEY = 'cartItems';
 
@@ -16,9 +15,28 @@ type CartItem = {
 };
 
 // Props do cartContext
-export type CartContextData = { items: CartItem[]; quantity: number; total: string };
+export type CartContextData = {
+  items: CartItem[];
+  quantity: number;
+  total: string;
+  isInCart: (id: string) => boolean;
+  addToCart: (id: string) => void;
+  removeToCart: (id: string) => void;
+  clearCart: () => void;
+  loading: boolean;
+};
 
-export const CartContextDefaultValues = { items: [], quantity: 0, total: '$0.00' };
+// Assinatura dos metodos/inicio
+export const CartContextDefaultValues = {
+  items: [],
+  quantity: 0,
+  total: '$0.00',
+  isInCart: () => false,
+  addToCart: () => null,
+  removeToCart: () => null,
+  clearCart: () => null,
+  loading: false,
+};
 
 export const CartContext = createContext<CartContextData>(CartContextDefaultValues);
 
@@ -38,7 +56,7 @@ const CartProvider = ({ children }: CartproviderProps) => {
     }
   }, []);
 
-  const { data } = useQueryGames({
+  const { data, loading } = useQueryGames({
     // Se não tiver id, não roda
     skip: !cartItems?.length,
     variables: {
@@ -52,13 +70,38 @@ const CartProvider = ({ children }: CartproviderProps) => {
     return acc + game.price;
   }, 0);
 
-  // Disponibilizando os items pego pelo storage
+  const isInCart = (id: string) => (id ? cartItems.includes(id) : false);
+
+  const saveCart = (cartItems: string[]) => {
+    setStorageItem(CART_KEY, cartItems);
+    setCartItems(cartItems);
+  };
+
+  const addToCart = (id: string) => {
+    const newCartItems = [...cartItems, id];
+    saveCart(newCartItems);
+  };
+
+  const removeToCart = (id: string) => {
+    const newCartItems = cartItems.filter((cartItemsId: string) => cartItemsId !== id);
+    saveCart(newCartItems);
+  };
+
+  const clearCart = () => {
+    saveCart([]);
+  };
+  // Disponibilizando as funções e valores
   return (
     <CartContext.Provider
       value={{
         items: cartMapper(data?.games),
         quantity: cartItems.length,
         total: formatPrice(total || 0),
+        isInCart,
+        addToCart,
+        removeToCart,
+        clearCart,
+        loading,
       }}
     >
       {children}
