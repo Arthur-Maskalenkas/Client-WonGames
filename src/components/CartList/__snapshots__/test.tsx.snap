@@ -128,80 +128,82 @@ exports[`<CartList /> deve renderizar o componente 1`] = `
   }
 }
 
-<div
-  class="c0"
->
+<div>
   <div
-    class="c1"
+    class="c0"
   >
     <div
-      class="c2"
+      class="c1"
     >
       <div
-        class="c3"
+        class="c2"
       >
-        <img
-          alt="Red Dead Redemption 2"
-          src="https://source.unsplash.com/user/willianjusten/151x70"
-        />
-      </div>
-      <div
-        class="c4"
-      >
-        <h3
-          class="c5"
-        >
-          Red Dead Redemption 2
-        </h3>
         <div
-          class="c6"
+          class="c3"
         >
-          R$ 215,00
+          <img
+            alt="Red Dead Redemption 2"
+            src="https://source.unsplash.com/user/willianjusten/151x70"
+          />
+        </div>
+        <div
+          class="c4"
+        >
+          <h3
+            class="c5"
+          >
+            Red Dead Redemption 2
+          </h3>
+          <div
+            class="c6"
+          >
+            R$ 215,00
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="c1"
-  >
     <div
-      class="c2"
+      class="c1"
     >
       <div
-        class="c3"
+        class="c2"
       >
-        <img
-          alt="Borderlands 3"
-          src="https://source.unsplash.com/user/willianjusten/151x70"
-        />
-      </div>
-      <div
-        class="c4"
-      >
-        <h3
-          class="c5"
-        >
-          Borderlands 3
-        </h3>
         <div
-          class="c6"
+          class="c3"
         >
-          R$ 215,00
+          <img
+            alt="Borderlands 3"
+            src="https://source.unsplash.com/user/willianjusten/151x70"
+          />
+        </div>
+        <div
+          class="c4"
+        >
+          <h3
+            class="c5"
+          >
+            Borderlands 3
+          </h3>
+          <div
+            class="c6"
+          >
+            R$ 215,00
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="c7"
-  >
-    <span>
-      Total:
-    </span>
-    <span
-      class="c8"
+    <div
+      class="c7"
     >
-      321
-    </span>
+      <span>
+        Total:
+      </span>
+      <span
+        class="c8"
+      >
+        R$ 330,00
+      </span>
+    </div>
   </div>
 </div>
 `;

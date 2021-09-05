@@ -1,20 +1,32 @@
+import { CartContextDefaultValues } from 'hooks/use-cart';
 import { render, screen } from 'utils/test-utils';
 
 import CartList from '.';
-import mockItems from './mock';
+import items from './mock';
 
 describe('<CartList />', () => {
   it('deve renderizar o componente', () => {
-    const { container } = render(<CartList items={mockItems} total="321" />);
+    const cartProviderProps = {
+      ...CartContextDefaultValues,
+      items,
+      total: 'R$ 330,00',
+    };
+
+    const { container } = render(<CartList />, { cartProviderProps });
 
     expect(screen.getAllByRole('heading')).toHaveLength(2);
-    expect(screen.getByText(/321/i)).toBeInTheDocument();
+    expect(screen.getByText('R$ 330,00')).toBeInTheDocument();
 
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('vai renderizar o botão', () => {
-    render(<CartList items={mockItems} total="321" hasButton />);
+    const cartProviderProps = {
+      ...CartContextDefaultValues,
+      items,
+    };
+
+    render(<CartList hasButton />, { cartProviderProps });
 
     expect(screen.getByText(/buy it now/i)).toBeInTheDocument();
   });
