@@ -1,3 +1,4 @@
+import { CartContextDefaultValues } from 'hooks/use-cart';
 import { render, screen } from 'utils/test-utils';
 
 import CartIcon from '.';
@@ -10,17 +11,13 @@ describe('<CartIcon />', () => {
     expect(screen.queryByLabelText(/cart items/i)).not.toBeInTheDocument();
   });
 
-  it('vai com a badge', () => {
-    render(<CartIcon quantity={3} />);
+  // Agora eu estou passando via contexto todos os valores padrões e modificando o quantity para 3
+  it('vai renderizar com a badge', () => {
+    render(<CartIcon />, {
+      cartProviderProps: { ...CartContextDefaultValues, quantity: 3 },
+    });
 
     expect(screen.getByLabelText(/shopping cart/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/cart items/i)).toBeInTheDocument();
-  });
-
-  it('vai renderizar badge apenas com numeros postiivos', () => {
-    render(<CartIcon quantity={-1} />);
-
-    expect(screen.queryByLabelText(/cart items/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/-1/)).not.toBeInTheDocument();
+    expect(screen.getByText(/3/i)).toBeInTheDocument();
   });
 });
