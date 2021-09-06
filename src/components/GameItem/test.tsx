@@ -1,8 +1,11 @@
+import userEvent from '@testing-library/user-event';
+import { CartContextDefaultValues } from 'hooks/use-cart';
 import { render, screen } from 'utils/test-utils';
 
 import GameItem, { GameItemProps, PaymentInfoProps } from '.';
 
-const props: GameItemProps = {
+const props = {
+  id: '1',
   title: 'um titulo',
   img: 'uma imagem',
   price: 'um preco',
@@ -34,7 +37,8 @@ describe('<GameItem />', () => {
   });
 
   it('Isso deve renderizar as informações de pagamento', () => {
-    const paymentInfo: PaymentInfoProps = {
+    const paymentInfo = {
+      id: '1',
       flag: 'mastercard',
       img: '/img/master-card.png',
       number: '**** **** **** 4326',
@@ -50,5 +54,20 @@ describe('<GameItem />', () => {
 
     expect(screen.getByText(paymentInfo.number)).toBeInTheDocument();
     expect(screen.getByText(paymentInfo.purchaseDate)).toBeInTheDocument();
+  });
+
+  it('Vai chamar a função de remover o jogo do carrinho quando o remove for clicado', () => {
+    const cartProviderProps = {
+      ...CartContextDefaultValues,
+      isInCart: () => true,
+      removeToCart: jest.fn(),
+    };
+    render(<GameItem {...props} />, { cartProviderProps });
+
+    const removeLink = screen.getByText(/remove/i);
+    expect(removeLink).toBeInTheDocument();
+
+    userEvent.click(removeLink);
+    expect(cartProviderProps.removeToCart).toHaveBeenCalledWith('1');
   });
 });

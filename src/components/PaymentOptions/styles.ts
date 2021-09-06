@@ -5,13 +5,13 @@ import * as ButtonStyles from 'components/Button/styles';
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
-    background: ${theme.colors.white};
     height: max-content;
   `}
 `;
 
 export const Body = styled.div`
   ${({ theme }) => css`
+    background: ${theme.colors.white};
     padding: ${theme.spacings.small};
   `}
 `;

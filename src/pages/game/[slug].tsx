@@ -5,15 +5,9 @@ import Game, { GameTemplateProps } from 'templates/Game';
 import { initializeApollo } from 'utils/apollo';
 import { gamesMapper, highlightMapper } from 'utils/mappers';
 
-import gamesMock from 'components/GameCardSlider/mock';
-import highlightMock from 'components/Highlight/mock';
-
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames';
 import { QueryRecommended } from 'graphql/generated/QueryRecommended';
-import {
-  QueryUpcoming,
-  QueryUpcomingVariables,
-} from 'graphql/generated/QueryUpcoming';
+import { QueryUpcoming, QueryUpcomingVariables } from 'graphql/generated/QueryUpcoming';
 
 import { QUERY_GAMES, QUERY_GAME_BY_SLUG } from 'graphql/queries/games';
 import {
@@ -56,10 +50,7 @@ export async function getStaticPaths() {
 // Aqui é aonde alimenta os dados da pagina
 */
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await apolloClient.query<
-    QueryGameBySlug,
-    QueryGameBySlugVariables
-  >({
+  const { data } = await apolloClient.query<QueryGameBySlug, QueryGameBySlugVariables>({
     query: QUERY_GAME_BY_SLUG,
     variables: { slug: `${params?.slug}` },
     fetchPolicy: 'no-cache',
@@ -92,6 +83,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       cover: `${game.cover?.src}`,
       gameInfo: {
+        id: game.id,
         title: game.name,
         price: game.price,
         description: game.short_description,
