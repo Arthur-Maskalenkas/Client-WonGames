@@ -20,10 +20,10 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      cards: cardsMock,
+      recommendedTitle: data.recommended?.section?.title,
       recommendedGames: gamesMapper(data.recommended?.section?.games),
       recommendedHighlight: highlightMapper(data.recommended?.section?.highlight),
-      cart: { items: itemsMock, total: '$ 430,00' },
-      payment: { cards: cardsMock },
     },
   };
 }

@@ -1,26 +1,8 @@
 import { tint } from 'polished';
-import styled, { css, DefaultTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
 import * as EmptyStyles from 'components/Empty/styles';
-
-const wrapperModifiers = {
-  isEmpty: (theme: DefaultTheme) => css`
-    ${EmptyStyles.Wrapper} {
-      padding-bottom: ${theme.spacings.medium};
-    }
-    ${EmptyStyles.Image} {
-      max-width: 20rem;
-    }
-    ${EmptyStyles.Title} {
-      font-size: ${theme.font.sizes.large};
-    }
-    ${EmptyStyles.Description} {
-      color: ${theme.colors.black};
-      font-size: ${theme.font.sizes.medium};
-    }
-  `,
-};
 
 type WrapperProps = {
   isEmpty: boolean;
@@ -32,8 +14,22 @@ export const Wrapper = styled.div<WrapperProps>`
     display: flex;
     flex-direction: column;
     align-self: start;
-
-    ${isEmpty && wrapperModifiers.isEmpty(theme)}
+    ${isEmpty &&
+    css`
+      ${EmptyStyles.Wrapper} {
+        padding-bottom: ${theme.spacings.medium};
+      }
+      ${EmptyStyles.Image} {
+        max-width: 20rem;
+      }
+      ${EmptyStyles.Title} {
+        font-size: ${theme.font.sizes.large};
+      }
+      ${EmptyStyles.Description} {
+        color: ${theme.colors.black};
+        font-size: ${theme.font.sizes.medium};
+      }
+    `}
   `}
 `;
 
@@ -47,7 +43,6 @@ export const Footer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     ${media.greaterThan('medium')`
       font-size: ${theme.font.sizes.medium};
       padding: ${theme.spacings.small};

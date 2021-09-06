@@ -1,5 +1,5 @@
-import { Add, ShoppingCart } from '@styled-icons/material-outlined';
 import { useState } from 'react';
+import { Add, ShoppingCart } from '@styled-icons/material-outlined';
 
 import Button from 'components/Button';
 import Heading from 'components/Heading';
@@ -28,7 +28,6 @@ const PaymentOptions = ({ cards, handlePayment }: PaymentOptionsProps) => {
           Payment
         </Heading>
 
-        {/* Radio tem que usar junto com label */}
         <S.CardsList>
           {cards?.map((card) => (
             <S.CardItem key={card.number}>

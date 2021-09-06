@@ -6,7 +6,9 @@ import PaymentOptions, { PaymentOptionsProps } from 'components/PaymentOptions';
 import CartList, { CartListProps } from 'components/CartList';
 import Heading from 'components/Heading';
 import Showcase from 'components/ShowCase';
+
 import Base from 'templates/Base';
+
 import { Info } from '@styled-icons/material-outlined/Info';
 
 import * as S from './styles';

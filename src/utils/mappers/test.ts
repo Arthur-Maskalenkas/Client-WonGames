@@ -68,6 +68,7 @@ describe('gamesMapper()', () => {
 
     expect(gamesMapper(games)).toStrictEqual([
       {
+        id: '1',
         title: 'gta v',
         slug: 'gta-v',
         developer: 'Rockstar games',
