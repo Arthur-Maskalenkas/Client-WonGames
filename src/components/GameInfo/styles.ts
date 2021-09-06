@@ -6,6 +6,8 @@ import * as RibbonStyles from 'components/Ribbon/styles';
 export const Wrapper = styled.div`
   ${({ theme }) => css`
     position: relative;
+    display: flex;
+    flex-direction: column;
     background: ${theme.colors.white};
     padding: ${theme.spacings.small};
 
