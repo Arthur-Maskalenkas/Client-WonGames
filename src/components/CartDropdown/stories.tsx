@@ -20,6 +20,7 @@ export const Default: Story = (args) => (
   </div>
 );
 
+// Vai tudo para o outro componente, sem ter que passar props!
 Default.args = {
   cartContextValue: {
     items,
