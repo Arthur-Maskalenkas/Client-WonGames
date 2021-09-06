@@ -29,14 +29,7 @@ export type ButtonProps = {
 
 // O passHref vai chegar aqui e vai ser tratado, jogando para o wrapper que é um a.
 const Button: React.ForwardRefRenderFunction<S.WrapperProps, ButtonProps> = (
-  {
-    children,
-    icon,
-    size = 'medium',
-    fullWidth = false,
-    minimal = false,
-    ...props
-  },
+  { children, icon, size = 'medium', fullWidth = false, minimal = false, ...props },
   ref,
 ) => (
   <S.Wrapper

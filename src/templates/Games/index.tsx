@@ -42,7 +42,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
   const hasMoreGames = games.length < (gamesConnection?.values?.length || 0);
 
   const handleFilter = (items: ParsedUrlQueryInput) => {
-    push({ pathname: '/games', query: items }, undefined, { scroll: false });
+    push({ pathname: '/games', query: items });
     return;
   };
 
@@ -71,6 +71,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
               <Grid>
                 {data?.games.map((game) => (
                   <GameCard
+                    id={game.id}
                     key={game.slug}
                     title={game.name}
                     developer={game.developers[0].name}

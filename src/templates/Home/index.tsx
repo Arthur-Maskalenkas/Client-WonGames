@@ -1,42 +1,42 @@
+import Base from 'templates/Base';
+
 import { BannerProps } from 'components/Banner';
 import { GameCardProps } from 'components/GameCard';
 import { HighlightProps } from 'components/Highlight';
-
 import { Container } from 'components/Container';
-import Base from 'templates/Base';
 import BannerSlider from 'components/BannerSlider';
+import Showcase from 'components/ShowCase';
 
 import * as S from './styles';
-import Showcase from 'components/ShowCase';
 
 export type HomeTemplateProps = {
   banners: BannerProps[];
-  newGames: GameCardProps[];
   newGamesTitle: string;
+  newGames: GameCardProps[];
+  mostPopularGamesTitle: string;
   mostPopularHighlight: HighlightProps;
   mostPopularGames: GameCardProps[];
-  mostPopularGamesTitle: string;
-  upcommingGames: GameCardProps[];
   upcomingGamesTitle: string;
-  upcommingHighlight: HighlightProps;
-  freeGames: GameCardProps[];
+  upcomingGames: GameCardProps[];
+  upcomingHighlight: HighlightProps;
   freeGamesTitle: string;
+  freeGames: GameCardProps[];
   freeHighlight: HighlightProps;
 };
 
 const Home = ({
   banners,
+  newGamesTitle,
   newGames,
+  mostPopularGamesTitle,
   mostPopularHighlight,
   mostPopularGames,
-  upcommingGames,
-  upcommingHighlight,
+  upcomingGamesTitle,
+  upcomingGames,
+  upcomingHighlight,
+  freeGamesTitle,
   freeGames,
   freeHighlight,
-  newGamesTitle,
-  mostPopularGamesTitle,
-  freeGamesTitle,
-  upcomingGamesTitle,
 }: HomeTemplateProps) => (
   <Base>
     <Container>
@@ -57,15 +57,11 @@ const Home = ({
 
     <Showcase
       title={upcomingGamesTitle}
-      games={upcommingGames}
-      highlight={upcommingHighlight}
+      games={upcomingGames}
+      highlight={upcomingHighlight}
     />
 
-    <Showcase
-      title={freeGamesTitle}
-      highlight={freeHighlight}
-      games={freeGames}
-    />
+    <Showcase title={freeGamesTitle} highlight={freeHighlight} games={freeGames} />
   </Base>
 );
 

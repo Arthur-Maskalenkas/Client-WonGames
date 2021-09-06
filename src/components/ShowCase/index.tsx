@@ -12,12 +12,7 @@ export type ShowcaseProps = {
   color?: 'black' | 'white';
 };
 
-const Showcase = ({
-  title,
-  highlight,
-  games,
-  color = 'white',
-}: ShowcaseProps) => (
+const Showcase = ({ title, highlight, games, color = 'white' }: ShowcaseProps) => (
   <S.Wrapper>
     {!!title && (
       <Heading lineLeft lineColor="secondary">
