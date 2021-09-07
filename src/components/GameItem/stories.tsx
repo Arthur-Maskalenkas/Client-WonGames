@@ -13,13 +13,13 @@ export default {
 
 export const Default: Story<GameItemProps> = (args) => <GameItem {...args} />;
 
-export const WithPayment: Story<GameItemProps> = (args) => (
-  <GameItem {...args} />
-);
+export const WithPayment: Story<GameItemProps> = (args) => <GameItem {...args} />;
 
 WithPayment.args = {
+  id: '1',
   downloadLink: 'https://wongames.com/game/download/21312ndasd',
   paymentInfo: {
+    id: '1',
     flag: 'mastercard',
     img: '/img/master-card.png',
     number: '**** **** **** 4326',
