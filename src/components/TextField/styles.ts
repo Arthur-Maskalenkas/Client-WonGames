@@ -29,6 +29,13 @@ export const Input = styled.input<IconPositionProps>`
     border: 0;
     outline: none;
     width: 100%;
+
+    /* ESSENCIAL PARA QUE QUANDO O NAVEGADOR RELEMBRE OS EMAILS UTILIZADOS, ASSIM QUE PASSAR O MOUSE SOBRE ELES, O INPUT NÃO MUDAR DE COR */
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 ${theme.spacings.small}
+        ${theme.colors.lightGray} inset;
+      filter: none
+    }
   `}
 `;
 
