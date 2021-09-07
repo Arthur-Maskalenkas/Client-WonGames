@@ -5,7 +5,7 @@ import * as S from './styles';
 type IconPositionType = 'left' | 'right';
 
 export type TextFieldProps = {
-  onInput?: (value: string) => void;
+  onInputChange?: (value: string) => void;
   label?: string;
   initialValue?: string;
   icon?: JSX.Element;
@@ -18,7 +18,7 @@ const TextField = ({
   label,
   iconPosition = 'left',
   initialValue = '',
-  onInput,
+  onInputChange,
   name,
   icon,
   disabled = false,
@@ -31,8 +31,8 @@ const TextField = ({
     const newValue = e.currentTarget.value;
     setValue(newValue);
 
-    if (onInput) {
-      onInput(newValue);
+    if (onInputChange) {
+      onInputChange(newValue);
     }
   };
 

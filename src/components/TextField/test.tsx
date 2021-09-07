@@ -36,9 +36,11 @@ describe('<TextField />', () => {
   });
 
   it('Vai testar se o TextField muda o valor dele enquanto o usuario digita', async () => {
-    const onInput = jest.fn();
+    const onInputChange = jest.fn();
 
-    render(<TextField onInput={onInput} label="TextField" name="TextField" />);
+    render(
+      <TextField onInputChange={onInputChange} label="TextField" name="TextField" />,
+    );
 
     const input = screen.getByRole('textbox');
     const text = 'This is my new text';
@@ -50,10 +52,10 @@ describe('<TextField />', () => {
     // Se usa waitFor por conta que esta esperando os estados mudarem, e esta verificando chamada de função
     await waitFor(() => {
       expect(input).toHaveValue(text);
-      expect(onInput).toHaveBeenCalledTimes(text.length);
+      expect(onInputChange).toHaveBeenCalledTimes(text.length);
     });
 
-    expect(onInput).toHaveBeenCalledWith(text);
+    expect(onInputChange).toHaveBeenCalledWith(text);
   });
 
   it('Vai testar se o LabelText é acessivel pelo TAB', () => {
@@ -79,9 +81,16 @@ describe('<TextField />', () => {
   });
 
   it('Vai testar se o TextArea fica indigitavel caso seja passada a prop disabled', async () => {
-    const onInput = jest.fn();
+    const onInputChange = jest.fn();
 
-    render(<TextField onInput={onInput} label="TextField" name="TextField" disabled />);
+    render(
+      <TextField
+        onInputChange={onInputChange}
+        label="TextField"
+        name="TextField"
+        disabled
+      />,
+    );
 
     const input = screen.getByRole('textbox');
     expect(input).toBeDisabled();
@@ -96,7 +105,7 @@ describe('<TextField />', () => {
     await waitFor(() => {
       expect(input).not.toHaveValue(text);
     });
-    expect(onInput).not.toHaveBeenCalled();
+    expect(onInputChange).not.toHaveBeenCalled();
   });
 
   it('Vai testar se com o TextField desabilitado, o TAB não funciona', () => {
