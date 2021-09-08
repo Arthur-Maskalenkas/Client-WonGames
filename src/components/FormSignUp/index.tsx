@@ -1,10 +1,13 @@
 import Link from 'next/link';
+
 import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined';
 
 import { FormWrapper, FormLink } from 'components/Form';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
+
 import React, { useState } from 'react';
+
 import { UsersPermissionsRegisterInput } from 'graphql/generated/globalTypes';
 import { useMutation } from '@apollo/client';
 import { MUTATION_REGISTER } from 'graphql/mutations/register';

@@ -31,9 +31,7 @@ const Auth = ({ title, children }: AuthProps) => (
           </S.BannerSubtitle>
         </div>
 
-        <S.BannerFooter>
-          Won games 2020 Todos os direitos Reservados
-        </S.BannerFooter>
+        <S.BannerFooter>Won games 2020 Todos os direitos Reservados</S.BannerFooter>
       </S.BannerContent>
     </S.BannerBlock>
     {/* / Bannerr */}

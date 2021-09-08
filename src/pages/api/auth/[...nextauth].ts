@@ -11,13 +11,6 @@ type AuthorizeProps = {
   password: string;
 };
 
-// Eu estou criando as opções que vão ser enviadas para o nextauth
-// Logo dentro tem os providers que tem a função de autenticar o usuario e retornar o token do usuario
-// NO caso eu estou trabalhando com um backend proprio, por isso estou usando .crendetials, mas poderia ser google e etc... caso fosse outro back-end
-// Dentro das credencials do NEXTAUTH eu to rodando um authorize passando o email e a senha, e um fetch dentro
-// logo depois eu faço um fetch no STRAPI(com a rota da documentação) passando o email e a senha que é esperado como email e password
-// Logo depois eu pego o dado, transformo em json e verifico. Caso ele passe, logo depois vai para as callbacks
-
 const options = {
   pages: {
     signIn: '/sign-in',
