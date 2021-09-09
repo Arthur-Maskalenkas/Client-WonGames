@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { signIn } from 'next-auth/client';
 
 import { AccountCircle, Email, Lock } from '@styled-icons/material-outlined';
 
-import { FormWrapper, FormLink } from 'components/Form';
+import { FormWrapper, FormLink, FormLoading } from 'components/Form';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
 
@@ -22,9 +23,20 @@ const FormSignUp = () => {
     email: '',
     password: '',
   });
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
 
   // https://www.apollographql.com/docs/react/data/mutations/
-  const [createUser] = useMutation(MUTATION_REGISTER);
+  const [createUser, { loading, error }] = useMutation(MUTATION_REGISTER, {
+    onError: (err) => console.error(err),
+    onCompleted: () => {
+      !error &&
+        signIn('credentials', {
+          email: values.email,
+          password: values.password,
+          callbackUrl: '/',
+        });
+    },
+  });
 
   // {..., username: 'novo valor'}
   const handleInput = (field: string, value: string) => {
@@ -33,9 +45,10 @@ const FormSignUp = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // Previne a atualização da pagina
+    setLoadingSubmit(true);
 
     // MUTATION_REGISTER recebe input como argumento mutation MutationRegister($input: UsersPermissionsRegisterInput!) {
-    createUser({
+    await createUser({
       variables: {
         input: {
           username: values.username,
@@ -44,6 +57,8 @@ const FormSignUp = () => {
         },
       },
     });
+
+    setLoadingSubmit(false);
   };
 
   return (
@@ -78,8 +93,8 @@ const FormSignUp = () => {
           onInputChange={(value) => handleInput('confirm-password', value)}
         />
 
-        <Button type="submit" size="large" fullWidth>
-          Sign up now
+        <Button type="submit" size="large" fullWidth disabled={loadingSubmit}>
+          {loadingSubmit ? <FormLoading /> : <span>Sign up now</span>}
         </Button>
 
         <FormLink>

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { Email, Lock } from '@styled-icons/material-outlined';
 
-import { FormLink, FormWrapper } from 'components/Form';
+import { FormLink, FormLoading, FormWrapper } from 'components/Form';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
 
@@ -19,6 +19,7 @@ type UserSigninInput = {
 const FormSignIn = () => {
   // Pegando o tipo que é necessario para entrar um usuario
   const [values, setValues] = useState<UserSigninInput>({ email: '', password: '' });
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { push } = useRouter();
 
@@ -29,6 +30,7 @@ const FormSignIn = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // Previne a atualização da pagina
+    setLoading(true);
 
     // Esperando o resultado da promise
     const result = await signIn('credentials', {
@@ -39,7 +41,7 @@ const FormSignIn = () => {
     });
 
     /*
-    o signIn retorna uma promise
+    o signIn retorna uma promise. Um objeto com as seguintes caracteristicas, ja resolvidas:
     
     * error: string | undefined
     * status: number
@@ -50,6 +52,8 @@ const FormSignIn = () => {
     if (result?.url) {
       return push(result?.url);
     }
+
+    setLoading(false);
 
     console.log('email ou senha invalidos');
   };
@@ -73,8 +77,8 @@ const FormSignIn = () => {
         />
         <S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
 
-        <Button type="submit" size="large" fullWidth>
-          Sign in now
+        <Button type="submit" size="large" fullWidth disabled={loading}>
+          {loading ? <FormLoading /> : <span>Sign in now</span>}
         </Button>
 
         <FormLink>
