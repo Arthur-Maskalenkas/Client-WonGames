@@ -14,7 +14,7 @@ import CartDropdown from 'components/CartDropdown';
 import UserDropdown from 'components/UserDropdown';
 
 export type MenuProps = {
-  username?: string;
+  username?: string | undefined | null;
 };
 
 const Menu = ({ username }: MenuProps) => {

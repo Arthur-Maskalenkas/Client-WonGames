@@ -25,6 +25,7 @@ export const Link = styled.a`
     background: ${theme.colors.white};
     color: ${theme.colors.black};
     padding: ${theme.spacings.xsmall} ${theme.spacings.small};
+    cursor: pointer;
     transition: background, color, ${theme.transition.default};
     &:hover {
       background: ${theme.colors.primary};
