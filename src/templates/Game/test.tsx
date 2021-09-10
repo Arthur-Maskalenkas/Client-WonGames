@@ -22,17 +22,17 @@ const props: GameTemplateProps = {
   upcomingTitle: 'titleupcoming',
 };
 
+jest.mock('templates/Base', () => ({
+  __esModule: true,
+  default: function Mock({ children }: { children: React.ReactNode }) {
+    return <div data-testid="Mock Base">{children}</div>;
+  },
+}));
+
 jest.mock('components/Menu', () => ({
   __esModule: true,
   default: function Mock() {
     return <div data-testid="Mock Menu" />;
-  },
-}));
-
-jest.mock('components/Footer', () => ({
-  __esModule: true,
-  default: function Mock() {
-    return <div data-testid="Mock Footer" />;
   },
 }));
 
@@ -67,15 +67,10 @@ jest.mock('components/ShowCase', () => ({
 describe('<Game />', () => {
   it('vai renderizar os componentes', () => {
     render(<Game {...props} />);
-
     expect(screen.getByTestId('Mock Gallery')).toBeInTheDocument();
     expect(screen.getByTestId('Mock GameDetails')).toBeInTheDocument();
     expect(screen.getByTestId('Mock GameInfo')).toBeInTheDocument();
     expect(screen.getAllByTestId('Mock Showcase')).toHaveLength(2);
-
-    expect(screen.getByTestId(/mock menu/i)).toBeInTheDocument();
-    expect(screen.getByTestId(/mock footer/i)).toBeInTheDocument();
-    // Vai renderizar a descrição
     expect(screen.getByText(/custom html/i)).toBeInTheDocument();
   });
 
@@ -102,6 +97,7 @@ describe('<Game />', () => {
       },
     );
   });
+
   it('vai renderizar o background da pagina', () => {
     render(<Game {...props} />);
 

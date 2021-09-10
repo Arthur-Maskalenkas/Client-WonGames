@@ -16,6 +16,7 @@ exports[`<ProfileMenu /> vai renderizar o menu 1`] = `
 }
 
 .c1 {
+  cursor: pointer;
   -webkit-text-decoration: none;
   text-decoration: none;
   display: -webkit-box;
@@ -157,8 +158,7 @@ exports[`<ProfileMenu /> vai renderizar o menu 1`] = `
   </a>
   <a
     class="c1"
-    href="/profile/logout"
-    title="sign out"
+    role="button"
   >
     <svg
       aria-hidden="true"

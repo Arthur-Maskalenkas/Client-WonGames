@@ -12,7 +12,6 @@ export type BaseTemplateProps = {
 
 const Base = ({ children }: BaseTemplateProps) => {
   const [session] = useSession();
-  console.log(session);
   return (
     <S.Wrapper>
       <Container>
